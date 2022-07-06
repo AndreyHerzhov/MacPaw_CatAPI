@@ -1,2 +1,6 @@
+@import './utils/mixin';
+@import './base/reset.scss';
 @import './common';
-@import './example';
+@import './nav';
+@import './main';
+@import './hero';
