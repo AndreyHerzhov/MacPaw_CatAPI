@@ -1,6 +1,8 @@
 @import './utils/mixin';
+@import './utils/visually-hidden';
 @import './base/reset.scss';
-@import './common';
-@import './nav';
-@import './main';
-@import './hero';
+@import './layout/common';
+@import './layout/nav';
+@import './layout/main';
+@import './layout/hero';
+@import './layout/voting';

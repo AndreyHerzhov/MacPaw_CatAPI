@@ -1,7 +1,6 @@
 .container-nav{
     height: 100%;
-    width: 683px;
-    background-color: teal;
+    width: 665px;
     padding-left: 121px;
     padding-top: 38px;
     overflow: hidden;
@@ -9,13 +8,14 @@
 
 .nav-logo{
     display: block;
-   
+   cursor: pointer;
     width: 106px;
     height: 24px;
     color: #FF868E;
     background-image: url(../images/hero/Logo.png);
     background-repeat: no-repeat;
 }
+
 
 .nav-content{
     margin-top: 75px;
