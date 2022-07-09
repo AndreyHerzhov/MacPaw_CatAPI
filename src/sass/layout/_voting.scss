@@ -1,13 +1,13 @@
-.container-main_voting{
+// .main-container_voting{
     
-    width: 680px;
-    height: 782px;
-    background: #FFFFFF;
-    border-radius: 20px;
-    padding: 20px;
-}
+//     width: 680px;
+//     height: 782px;
+//     background: #FFFFFF;
+//     border-radius: 20px;
+//     padding: 20px;
+// }
 
-.voting-form_container{
+.main-container_voting-form{
     display: flex;
     position: relative;
 }
@@ -77,6 +77,7 @@
         }
     }
 }
+
 .icon-left{
     display: inline-block;
 }
@@ -95,6 +96,15 @@
 .voting-button_wrapper{
     display: flex;
 }
+
+.main-container_voting-data{
+    width: 680px;
+    height: 782px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+}
+
 
 .voting-image_card{
     position: relative;
@@ -178,11 +188,11 @@
     }
 }
 
-.voting-container_list-wrapper{
+.voting-data_list-wrapper{
     margin-top: 52px;
 }
 
-.voting-container_list-item{
+.main-container_voting-data_list-item{
     display: flex;
     align-items: center;
     padding: 15px;
