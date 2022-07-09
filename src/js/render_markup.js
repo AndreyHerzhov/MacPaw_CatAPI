@@ -1,6 +1,8 @@
 import { refs } from './refs'
 import mainPicture from '../images/hero/girl-and-pet.png'
 import iconLeft from 'bundle-text:../images/svg/left.svg'
+import alphabet from 'bundle-text:../images/svg/alfabet.svg'
+import reverse_alphabet from 'bundle-text:../images/svg/alphabet-reverse.svg'
 
 export function createMainMarkup() {
     refs.main.classList.add('first')
@@ -63,7 +65,7 @@ export function createVotingMarkup() {
                     </div>  
 
 
-                        <div class="main-container_voting-data">
+                    <div class="main-container_voting-data">
                             <div class="voting-button_wrapper">
                                 <button
                                     class="voting-button_back"
@@ -179,6 +181,27 @@ export function createBreedsMarkup() {
                         </button>
                     </div>  
 
+                    <div class="main-container_breeds-data">
+                            <div class="breeds-button_wrapper">
+                                <button
+                                    class="breeds-button_back"
+                                    type="button"
+                                    data-back="back"
+                                    id="back">${iconLeft}
+                                </button>
+                                
+                                <button
+                                    class="breeds-button_right"
+                                    type="button"
+                                    data-breeds="breeds_main"
+                                    id="breeds_main">BREEDS
+                                </button>
+
+                                <button type="button" id="breeds_list"></button>
+                                <button type="button" id="limit"></button>
+                                <button type="button" id="alphabet">${alphabet}</button>
+                                <button type="button" id="reverse">${reverse_alphabet}</button>
+                    </div>
 
 
                         

@@ -1,0 +1,58 @@
+.main-container_breeds-data{
+    width: 680px;
+    height: 782px;
+    background: #fff;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.breeds-button_wrapper{
+    display: flex
+}
+
+#breeds_main{
+    @include font(500, 20, 30, 0.04em);
+    width: 146px;
+    height: 40px;
+    color: #FFFFFF;
+    background: #FF868E;
+    border: none;
+    border-radius: 20px;
+    margin-left: 20px;
+}
+
+#breeds_list{
+    width: 226px;
+    height: 40px;
+    background: #F8F8F7;
+    border-radius: 10px;
+    margin-left: 10px;
+    border: none;
+}
+
+#limit{
+    width: 101px;
+    height: 40px;
+    background: #F8F8F7;
+    border-radius: 10px;
+    margin-left: 10px;
+    border: none;
+}
+
+#alphabet{
+    width: 40px;
+    height: 40px;
+    background: #F8F8F7;
+    border-radius: 10px;
+    margin-left: 10px;
+    border: none;
+}
+
+#reverse{
+    width: 40px;
+    height: 40px;
+    background: #F8F8F7;
+    border-radius: 10px;
+    margin-left: 10px;
+    border: none;
+}
