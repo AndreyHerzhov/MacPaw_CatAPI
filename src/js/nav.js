@@ -3,6 +3,8 @@
  import iconLeft from 'bundle-text:../images/svg/left.svg'
 //  import * as iconLeft from '../images/svg/left.svg'
 
+
+
  console.log(mainPicture)
  console.log(iconLeft)
 
