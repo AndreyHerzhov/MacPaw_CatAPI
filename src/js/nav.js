@@ -1,4 +1,7 @@
  import { createMainMarkup } from './render_main_markup'
+ import mainPicture from '../images/hero/girl-and-pet.png'
+
+ console.log(mainPicture)
 
 const refs = {
     btnVoting: document.querySelector('[data-search="voting"]'),
@@ -25,7 +28,7 @@ function createMain() {
     refs.backgroundMain.classList.remove('container-main_voting')
     refs.backgroundMain.innerHTML =   `
     <img 
-        src="/girl-and-pet.93026548.png" 
+        src="${mainPicture}" 
         alt="girl-and-pet" 
         width="775">
         `                     
