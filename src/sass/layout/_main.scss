@@ -1,14 +1,19 @@
 .main-container{
-    width: 775px;
-    height: 900px;
+   //  width: 775px;
+   //  height: 900px;
     background-image: url(../images/hero/Rectangle.png);
-   
     background-repeat: no-repeat;
     background-position: center;
     
 } 
 
  .main-container.voting{
+  
+   background-image: none;
+   padding-top: 30px;
+ }
+
+ .main-container.breeds{
   
    background-image: none;
    padding-top: 30px;
