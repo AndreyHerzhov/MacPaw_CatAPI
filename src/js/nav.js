@@ -1,26 +1,35 @@
 import { refs } from './refs'
 import { createVotingMarkup, createBreedsMarkup, createMainMarkup } from './render_markup'
+import CatApiService from "./catApiService";
  
 
 refs.btnVoting.addEventListener('click', openVotingPgae)
 refs.btnBreeds.addEventListener('click', openBreedsPage)
 refs.logo.addEventListener('click', createMainMarkup)
 
+const catApiService = new CatApiService()
 
  
 function openVotingPgae(e) {
     e.preventDefault()
-    refs.main.classList.remove('breeds')
-    refs.btnBreeds.classList.remove('active-btn')
-    refs.btnVoting.classList.toggle('active-btn')
-    refs.backgroundMain.classList.toggle('container-main_voting')
-    refs.main.classList.toggle('voting')
-    refs.main.classList.remove('first')
-    if(!refs.main.classList.contains('voting')) {
-        return createMainMarkup()
-    }  
-    refs.backgroundMain.innerHTML = ''
-    createVotingMarkup()
+    
+    catApiService.fetchRandomCat().then(data => {
+            const imgUrl = data[0].url
+            refs.main.classList.remove('breeds')
+            refs.btnBreeds.classList.remove('active-btn')
+            refs.btnVoting.classList.toggle('active-btn')
+            refs.backgroundMain.classList.toggle('container-main_voting')
+            refs.main.classList.toggle('voting')
+            refs.main.classList.remove('first')
+            if(!refs.main.classList.contains('voting')) {
+                return createMainMarkup()
+            }  
+            refs.backgroundMain.innerHTML = ''
+            createVotingMarkup(imgUrl)
+            console.log(imgUrl)
+    })
+   
+   
   
 }
 

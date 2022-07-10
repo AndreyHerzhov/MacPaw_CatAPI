@@ -8,5 +8,6 @@ export const refs = {
     logo: document.querySelector('.nav-logo'),
     btnBack: document.querySelector('[data-search="voting"]'),
     searchBtn: document.querySelector('.voting-button_search'),
-    votingInput: document.querySelector('.main-container_voting-form')
+    votingInput: document.querySelector('.main-container_voting-form'),
+    breedsGalery: document.querySelector('.breeds-gallery')
 } 

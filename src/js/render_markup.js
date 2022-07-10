@@ -20,7 +20,7 @@ export function createMainMarkup() {
                     `                     
 }
 
-export function createVotingMarkup() {
+export function createVotingMarkup(img) {
     refs.main.innerHTML = `
     <div class="main-container_voting">
      
@@ -82,7 +82,13 @@ export function createVotingMarkup() {
                             </div>
 
                             <div class="voting-image_card">
-                                <img src="" alt="" srcset="">
+                                <img class="random-cat"
+                                        src="${img}" 
+                                        alt="picture" 
+                                        width="640px" 
+                                        height="360px" 
+                                        srcset="">
+
 
                                 <div class="voting-image_button-wrapper">
                                     <button type="button" class="voting-image_button-smile">
@@ -182,6 +188,7 @@ export function createBreedsMarkup() {
                     </div>  
 
                     <div class="main-container_breeds-data">
+                    
                             <div class="breeds-button_wrapper">
                                 <button
                                     class="breeds-button_back"
@@ -201,10 +208,19 @@ export function createBreedsMarkup() {
                                 <button type="button" id="limit"></button>
                                 <button type="button" id="alphabet">${alphabet}</button>
                                 <button type="button" id="reverse">${reverse_alphabet}</button>
-                    </div>
 
+                                
+                            </div>
+
+                            <div class="breeds-gallery"></div>        
 
                         
-            </div>
+                    </div>
+    `
+}
+
+export function createBreedsGaleryMarkup(img) {
+    refs.breedsGalery.innerHTML = `
+            <img src="${img}"  width="100px" alt="" srcset="">
     `
 }
