@@ -19,8 +19,8 @@ export default class CatApiService {
         })
     }
 
-    fetchCatByBreed() {
-        const url = `${BASE_URL}breeds/search?q=${this.breedId}??api_key=${API_KEY}`;
+    fetchAllBreeds() {
+        const url = `${BASE_URL}breeds`;
         return fetch(url)
           .then(response =>  response.json())
           .then((data) => {

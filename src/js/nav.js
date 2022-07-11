@@ -8,7 +8,11 @@ refs.btnBreeds.addEventListener('click', openBreedsPage)
 refs.logo.addEventListener('click', createMainMarkup)
 
 const catApiService = new CatApiService()
-
+let arr= []
+let breedsObj = {
+    name: '',
+    id: ''
+}
  
 function openVotingPgae(e) {
     e.preventDefault()
@@ -45,5 +49,10 @@ function openBreedsPage(e) {
     }  
     refs.backgroundMain.innerHTML = ''
     createBreedsMarkup()    
-     
+    catApiService.fetchAllBreeds().then(data => {
+        const image = data.map(el => el.image)
+         
+        console.log(image)
+    })
+    
 }
