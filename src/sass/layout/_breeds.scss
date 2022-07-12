@@ -57,6 +57,27 @@
     border: none;
 }
 
+.cat-breeds_image0{
+    height: 300px;
+    width: 200px;
+}
+.cat-breeds_image1{
+    height: 140px;
+    width: 200px;
+}
+.cat-breeds_image2{
+    height: 140px;
+    width: 200px;
+}
+.cat-breeds_image3{
+    height: 140px;
+    width: 200px;
+}
+.cat-breeds_image4{
+    height: 300px;
+    width: 200px;
+}
+
  
  
 
@@ -65,12 +86,20 @@
 
   .img{
     object-fit: contain;
+    opacity: 0.5;
+  }
+
+  .box {
+    object-fit: contain;
+    background-color: #FF868E;
+    
   }
 
 .breeds-gallery{
     display: grid;
     grid-gap: 20px;
     grid-template-columns: 1fr 1fr 1fr;
+    // grid-template-rows: 300px 140px 140px 140px 300px;
     background-color: #fff;
     color: #444;
     padding: 20px;
