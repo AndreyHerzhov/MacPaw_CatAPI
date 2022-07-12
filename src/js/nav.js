@@ -1,5 +1,5 @@
 import { refs } from './refs'
-import { createVotingMarkup, createBreedsMarkup, createMainMarkup } from './render_markup'
+import { createVotingMarkup, createBreedsMarkup, createMainMarkup, createBreedsGaleryMarkup } from './render_markup'
 import CatApiService from "./catApiService";
  
 
@@ -8,10 +8,26 @@ refs.btnBreeds.addEventListener('click', openBreedsPage)
 refs.logo.addEventListener('click', createMainMarkup)
 
 const catApiService = new CatApiService()
-let arr= []
+let imageArr= []
 let breedsObj = {
     name: '',
     id: ''
+}
+
+function showFullInfoByBreedId(e) {
+    catApiService.pagination().then(data => console.log(data))
+    catApiService.id = e.target.id
+    catApiService.fetchCatById().then(data => {
+        const temperament = data[0].breeds[0].temperament;
+        const origin = data[0].breeds[0].origin
+        const weight =  data[0].breeds[0].weight
+        const life = data[0].breeds[0].life_span
+        // console.log(temperament,origin,weight,life)
+        // console.log(data)
+    }
+      
+    )
+    console.log(e.target.id)
 }
  
 function openVotingPgae(e) {
@@ -48,11 +64,39 @@ function openBreedsPage(e) {
         return createMainMarkup()
     }  
     refs.backgroundMain.innerHTML = ''
-    createBreedsMarkup()    
+   
+    createBreedsMarkup()  
+    const breedsGallery = document.querySelector('.breeds-gallery')
+    breedsGallery.addEventListener('click', showFullInfoByBreedId)
     catApiService.fetchAllBreeds().then(data => {
-        const image = data.map(el => el.image)
+        const results = data.filter(el => el.image !== undefined) 
          
-        console.log(image)
+        const  markup =  results.map(el =>   
+            `
+             <div class="cat-breeds_image">
+             
+                <img 
+                src=${JSON.stringify(el.image.url)} 
+                alt="${el.name}" 
+                id="${el.id}"  
+
+                loading="lazy" 
+                class="image"
+                width = 100%
+                />       
+             
+             
+                <div class="info">
+                       
+                </div>
+            </div>
+           `  
+           
+          ).join('')
+
+          breedsGallery.insertAdjacentHTML('afterbegin', markup)
+          
     })
+  
     
 }

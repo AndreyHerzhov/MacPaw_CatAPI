@@ -219,8 +219,9 @@ export function createBreedsMarkup() {
     `
 }
 
-export function createBreedsGaleryMarkup(img) {
-    refs.breedsGalery.innerHTML = `
-            <img src="${img}"  width="100px" alt="" srcset="">
+export function createBreedsGaleryMarkup({id, image}) {
+    // refs.breedsGalery.innerHTML = 
+     return `
+            <img src="${image.url}" id="${id} class="breeds-image width="100px" alt="" srcset="">
     `
 }
