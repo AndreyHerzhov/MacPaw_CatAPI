@@ -204,18 +204,23 @@ export function createBreedsMarkup() {
                                     id="breeds_main">BREEDS
                                 </button>
 
-                                <button type="button" id="breeds_list"></button>
-                                <button type="button" id="limit"></button>
+                                <button type="button" id="breeds_list">All breeds</button>
+                                <button type="button" id="limit">Limit: 10</button>
                                 <button type="button" id="alphabet">${alphabet}</button>
                                 <button type="button" id="reverse">${reverse_alphabet}</button>
 
                                 
                             </div>
 
-                            <div class="breeds-gallery"></div>        
+                            <div class="breeds-gallery">
+                               
+                            </div>        
 
+                            
                         
                     </div>
+
+                            
     `
 }
 

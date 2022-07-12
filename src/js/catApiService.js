@@ -7,10 +7,10 @@ const API_KEY = '984907ed-4e7f-4546-9c87-f9d0754e6fea'
 
 export default class CatApiService {
     constructor(){
-        this.breedId = 'beng';
+        this.breedId = 'asho';
         this.page = 1;
         this.limit = 10;
-        this.type = 'jpg,png'
+        this.type = 'jpg,png,gif'
     }
 
     // show random Cat photo
@@ -24,7 +24,7 @@ export default class CatApiService {
         })
     }
 
-    // Load linfo by parameters(Breed ID, number of result, type of foto) Return full info.
+    // Load linfo by breed_id. Several photos for one breed.(Breed ID, number of result, type of foto) Return full info.
     pagination() {
         const url = `${BASE_URL}images/search?limit=${this.limit}&page=${this.page}&breed_ids=${this.breedId}&order=DESC&mime_types=${this.type}`;
         return fetch(url)

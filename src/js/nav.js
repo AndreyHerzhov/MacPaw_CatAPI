@@ -20,8 +20,8 @@ window.onload = function() {
     // catApiService.fetchAllBreeds().then(data => console.log(data))
     // catApiService.pagination().then(data => console.log(data))
     // catApiService.fetchAllFotos().then(data => console.log(data[0].url))
-    catApiService.fetchCatById().then(data => console.log(data))
-    catApiService.fetchBreedsImg().then(data => console.log(data)) 
+    // catApiService.fetchCatById().then(data => console.log(data))
+    // catApiService.fetchBreedsImg().then(data => console.log(data)) 
 
     
   };
@@ -32,7 +32,7 @@ function showFullInfoByBreedId(e) {
         return
     }
     catApiService.id = e.target.id
-    catApiService.fetchCatById().then(data => {
+    catApiService.pagination().then(data => {
         const temperament = data[0].breeds[0].temperament;
         const origin = data[0].breeds[0].origin
         const weight =  data[0].breeds[0].weight.metric
@@ -83,9 +83,14 @@ function openBreedsPage(e) {
     createBreedsMarkup()  
     const breedsGallery = document.querySelector('.breeds-gallery')
     breedsGallery.addEventListener('click', showFullInfoByBreedId)
-    catApiService.fetchBreedsImg().then(data => {
+    catApiService.fetchAllBreeds().then(data => {
         
         const results = data.filter(el => el.image !== undefined) 
+        const firstTenCat = results.slice(0,10)
+        const secondTen = results.slice(9,20)
+        console.log(firstTenCat)
+        console.log(secondTen)
+        
         
         const  markup =  results.map((el,index) =>   
             
@@ -99,7 +104,7 @@ function openBreedsPage(e) {
 
                 loading="lazy" 
                 class="img image${index}"
-                width = 100%
+                width ="200px"
                 />       
              
              
@@ -110,7 +115,7 @@ function openBreedsPage(e) {
            `  
            
           ).join('')
-
+         
           breedsGallery.insertAdjacentHTML('afterbegin', markup)
           
     })
