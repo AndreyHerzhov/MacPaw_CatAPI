@@ -17,10 +17,12 @@ let breedsObj = {
 
 window.onload = function() {
     // catApiService.fetchRandomCat().then(data => console.log(data))
-    catApiService.fetchAllBreeds().then(data => console.log(data))
+    // catApiService.fetchAllBreeds().then(data => console.log(data))
     // catApiService.pagination().then(data => console.log(data))
-    // catApiService.fetchAllFotos().then(data => console.log(data))
-    // catApiService.fetchCatById().then(data => console.log(data))
+    // catApiService.fetchAllFotos().then(data => console.log(data[0].url))
+    catApiService.fetchCatById().then(data => console.log(data))
+    catApiService.fetchBreedsImg().then(data => console.log(data)) 
+
     
   };
 

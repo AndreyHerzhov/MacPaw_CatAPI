@@ -7,12 +7,13 @@ const API_KEY = '984907ed-4e7f-4546-9c87-f9d0754e6fea'
 
 export default class CatApiService {
     constructor(){
-        this.breedId = '';
+        this.breedId = 'beng';
         this.page = 1;
         this.limit = 10;
         this.type = 'jpg,png'
     }
 
+    // show random Cat photo
     fetchRandomCat() {
        const url = `${BASE_URL}images/search?api_key=${API_KEY}`;
        return fetch(url)
@@ -22,8 +23,10 @@ export default class CatApiService {
             return data
         })
     }
+
+    // Load linfo by parameters(Breed ID, number of result, type of foto) Return full info.
     pagination() {
-        const url = `https://api.thecatapi.com/v1/images/search?limit=${this.limit}&page=${this.page}&order=DESC&mime_types=${this.type}`;
+        const url = `${BASE_URL}images/search?limit=${this.limit}&page=${this.page}&breed_ids=${this.breedId}&order=DESC&mime_types=${this.type}`;
         return fetch(url)
           .then(response =>  response.json())
           .then((data) => {
@@ -33,7 +36,7 @@ export default class CatApiService {
     }
 
    
-
+   // return 67 breeds with full info about Cat
     fetchAllBreeds() {
         const url = `${BASE_URL}breeds`;
         return fetch(url)
@@ -44,7 +47,8 @@ export default class CatApiService {
         })
     }
 
-    fetchBreedsImg() {
+    // Return 67 breeds with ability to set limits
+    fetchAllBreedsWithPagination() {
         const url = `${BASE_URL}breeds?limit=${this.limit}&page=${this.page}`;
         return fetch(url)
           .then(response =>  response.json())
@@ -54,6 +58,7 @@ export default class CatApiService {
         })
     }
 
+    // Full info ById and one photo
     fetchCatById() {
         const url = `${BASE_URL}images/search?breed_ids=${this.breedId}`;
         return fetch(url)
@@ -62,8 +67,11 @@ export default class CatApiService {
             return data
         })
     }
+
+
+    // Find random photo
     fetchAllFotos() {
-        const url = `https://api.thecatapi.com/v1/images/search`;
+        const url = `${BASE_URL}images/search`;
         return fetch(url)
           .then(response =>  response.json())
           .then((data) => {

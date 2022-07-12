@@ -22,3 +22,5 @@ const breedsName = ['Abyssinian', 'Aegean', 'American Bobtail', 'American Curl',
                     'Selkirk Rex', 'Siamese', 'Siberian', 'Singapura', 'Snowshoe', 'Somali', 'Sphynx', 
                     'Tonkinese', 'Toyger', 
                     'Turkish Angora', 'Turkish Van', 'York Chocolate']                    
+
+const mime_type = [ 'gif', 'jpg', 'png']
