@@ -9,10 +9,11 @@ export default class CatApiService {
     constructor(){
         this.breedId = '';
         this.page = 1;
+        this.limit = 10;
+        this.type = 'jpg,png'
     }
 
     fetchRandomCat() {
-       
        const url = `${BASE_URL}images/search?api_key=${API_KEY}`;
        return fetch(url)
           .then(response =>  response.json())
@@ -22,7 +23,7 @@ export default class CatApiService {
         })
     }
     pagination() {
-        const url = `https://api.thecatapi.com/v1/images/search?mime_types=gif?limit=100&page=1&order=DESC`;
+        const url = `https://api.thecatapi.com/v1/images/search?limit=${this.limit}&page=${this.page}&order=DESC&mime_types=${this.type}`;
         return fetch(url)
           .then(response =>  response.json())
           .then((data) => {
@@ -34,7 +35,17 @@ export default class CatApiService {
    
 
     fetchAllBreeds() {
-        const url = `${BASE_URL}breeds?limit=${this.limit}&page=${this.page}&order=Desc`;
+        const url = `${BASE_URL}breeds`;
+        return fetch(url)
+          .then(response =>  response.json())
+          .then((data) => {
+            this.page += 1 
+            return data
+        })
+    }
+
+    fetchBreedsImg() {
+        const url = `${BASE_URL}breeds?limit=${this.limit}&page=${this.page}`;
         return fetch(url)
           .then(response =>  response.json())
           .then((data) => {
@@ -48,7 +59,14 @@ export default class CatApiService {
         return fetch(url)
           .then(response =>  response.json())
           .then((data) => {
-            this.page += 1 
+            return data
+        })
+    }
+    fetchAllFotos() {
+        const url = `https://api.thecatapi.com/v1/images/search`;
+        return fetch(url)
+          .then(response =>  response.json())
+          .then((data) => {
             return data
         })
     }

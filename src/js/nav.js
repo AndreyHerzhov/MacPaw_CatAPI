@@ -9,21 +9,34 @@ refs.logo.addEventListener('click', createMainMarkup)
 
 const catApiService = new CatApiService()
 let imageArr= []
+let breedsArr = []
 let breedsObj = {
     name: '',
     id: ''
 }
 
+window.onload = function() {
+    // catApiService.fetchRandomCat().then(data => console.log(data))
+    catApiService.fetchAllBreeds().then(data => console.log(data))
+    // catApiService.pagination().then(data => console.log(data))
+    // catApiService.fetchAllFotos().then(data => console.log(data))
+    // catApiService.fetchCatById().then(data => console.log(data))
+    
+  };
+
 function showFullInfoByBreedId(e) {
-    catApiService.pagination().then(data => console.log(data))
+    if(e.target.nodeName !== 'IMG'){
+        console.log("Not img")
+        return
+    }
     catApiService.id = e.target.id
     catApiService.fetchCatById().then(data => {
         const temperament = data[0].breeds[0].temperament;
         const origin = data[0].breeds[0].origin
-        const weight =  data[0].breeds[0].weight
-        const life = data[0].breeds[0].life_span
-        // console.log(temperament,origin,weight,life)
-        // console.log(data)
+        const weight =  data[0].breeds[0].weight.metric
+        const life = (data[0].breeds[0].life_span, 'kg')
+        console.log(temperament,origin,weight,life)
+        console.log(data)
     }
       
     )
@@ -68,12 +81,14 @@ function openBreedsPage(e) {
     createBreedsMarkup()  
     const breedsGallery = document.querySelector('.breeds-gallery')
     breedsGallery.addEventListener('click', showFullInfoByBreedId)
-    catApiService.fetchAllBreeds().then(data => {
+    catApiService.fetchBreedsImg().then(data => {
+        
         const results = data.filter(el => el.image !== undefined) 
-         
-        const  markup =  results.map(el =>   
+        
+        const  markup =  results.map((el,index) =>   
+            
             `
-             <div class="cat-breeds_image">
+             <div class="box cat-breeds_image${index}">
              
                 <img 
                 src=${JSON.stringify(el.image.url)} 
@@ -81,7 +96,7 @@ function openBreedsPage(e) {
                 id="${el.id}"  
 
                 loading="lazy" 
-                class="image"
+                class="img image${index}"
                 width = 100%
                 />       
              

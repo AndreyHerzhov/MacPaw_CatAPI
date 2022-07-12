@@ -57,10 +57,24 @@
     border: none;
 }
 
+ 
+ 
+
+ 
+  
+
+  .img{
+    object-fit: contain;
+  }
+
 .breeds-gallery{
-    display: flex;
-    flex-wrap: wrap;
-    overflow:auto;
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr 1fr 1fr;
+    background-color: #fff;
+    color: #444;
+    padding: 20px;
+     
     margin-top: 20px;
     width: 640px;
     height: 683px;  
@@ -68,7 +82,4 @@
     background-color: rgb(121, 106, 106);
 }
 
-.cat-breeds_image{
-    width: 210px;
-    height: 300px;
-}
+ 
