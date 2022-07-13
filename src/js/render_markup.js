@@ -213,9 +213,12 @@ export function createBreedsMarkup() {
                             </div>
 
                             <div class="breeds-gallery">
-                               
+                                
                             </div>        
-
+                            <div class="pagination-button_wrapper">
+                                <button type="button-bottom" id="prev_btn">PREV</button>
+                                <button type="button-bottom" id="next_btn">NEXT</button>
+                            </div>
                             
                         
                     </div>
@@ -224,9 +227,6 @@ export function createBreedsMarkup() {
     `
 }
 
-export function createBreedsGaleryMarkup({id, image}) {
-    // refs.breedsGalery.innerHTML = 
-     return `
-            <img src="${image.url}" id="${id} class="breeds-image width="100px" alt="" srcset="">
-    `
+export function createBreedsGaleryMarkup() {
+    console.log(refs.breedsGalery)
 }

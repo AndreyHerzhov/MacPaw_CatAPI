@@ -9,5 +9,7 @@ export const refs = {
     btnBack: document.querySelector('[data-search="voting"]'),
     searchBtn: document.querySelector('.voting-button_search'),
     votingInput: document.querySelector('.main-container_voting-form'),
-    breedsGalery: document.querySelector('.breeds-gallery')
+    breedsGalery: document.querySelector('.breeds-gallery'),
+    prevBtn: document.querySelector('#prev_btn'),
+    nextBtn: document.querySelector('#next_btn')
 } 

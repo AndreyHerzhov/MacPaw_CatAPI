@@ -1,4 +1,5 @@
 .main-container_breeds-data{
+    position: relative;
     width: 680px;
     height: 782px;
     background: #fff;
@@ -69,6 +70,7 @@
 
  
 .breeds-gallery{
+    position: relative;
     display: grid;
     grid-gap: 10px;
     grid-template-columns:  [col1-start] 200px   [col2-start] 200px  
@@ -79,15 +81,15 @@
                             [row6-start] 140px [row6-end];
     background-color: #fff;
     color: #444;
-     
+    overflow-y: auto;
+    overflow-x: hidden;
     background-color: #fff;
     color: #444;
-    padding: 10px;
     margin-top: 20px;
     width: 640px;
     height: 683px;  
-    border-radius: 20px;
-    background-color: rgb(121, 106, 106);
+     
+    
 }
  
 
@@ -195,6 +197,9 @@
 }
 
 .pagination-button_wrapper{
+    position: absolute;
+    bottom: 20px;
+     
     width: 640px;
     height: 68px;
     display: flex;
@@ -203,4 +208,35 @@
     margin: 0 auto;
 }
  
+
+#prev_btn{
+    height: 40px;
+    width: 122px;
+    background: #F8F8F7;
+    border-radius: 10px;
+    border: none;
+    color: #8C8C8C;
+
+    &:hover{
+        cursor: pointer;
+        background: #FBE0DC;
+        color: #FF868E;
+    }
+}
+
+#next_btn{
+    height: 40px;
+    width: 122px;
+    margin-left: 40px;
+    background: #F8F8F7;
+    border-radius: 10px;
+    border: none;
+    color: #8C8C8C;
+
+    &:hover{
+        cursor: pointer;
+        background: #FBE0DC;
+        color: #FF868E;
+    }
+}
  
