@@ -1,27 +1,23 @@
 import { refs } from './refs'
-import { createVotingMarkup, createBreedsMarkup, createMainMarkup, createBreedsGaleryMarkup } from './render_markup'
+import { createVotingMarkup, createBreedsMarkup, createMainMarkup,createGalaryMarkup, createBreedsGaleryMarkup } from './render_markup'
 import CatApiService from "./catApiService";
  
 
 refs.btnVoting.addEventListener('click', openVotingPgae)
 refs.btnBreeds.addEventListener('click', openBreedsPage)
 refs.logo.addEventListener('click', createMainMarkup)
+refs.btnGallery.addEventListener('click', openGallaryPage)
 
 const catApiService = new CatApiService()
 let initialIndex = 0
-let breedsGallery = ''
-let imageArr= []
 let breedsArr = []
-let breedsObj = {
-    name: '',
-    id: ''
-}
+ 
 
 window.onload = function() {
     
     // catApiService.fetchRandomCat().then(data => console.log(data))
     // catApiService.fetchAllBreeds().then(data => console.log(data))
-    // catApiService.pagination().then(data => console.log(data))
+    catApiService.pagination().then(data => console.log(data))
     // catApiService.fetchAllFotos().then(data => console.log(data[0].url))
     // catApiService.fetchCatById().then(data => console.log(data))
     // catApiService.fetchBreedsImg().then(data => console.log(data)) 
@@ -75,6 +71,9 @@ function openBreedsPage(e) {
     e.preventDefault()
     refs.main.classList.remove('first')
     refs.main.classList.remove('voting')
+    refs.main.classList.remove('gallery')
+    refs.main.classList.remove('gallery')
+    refs.btnGallery.classList.remove('active-btn')
     refs.main.classList.toggle('breeds')
     refs.btnVoting.classList.remove('active-btn')
     refs.btnBreeds.classList.toggle('active-btn')
@@ -187,3 +186,20 @@ function openBreedsPage(e) {
     }
 }
 
+
+function openGallaryPage(e){
+    console.log('Click on galary')
+    refs.main.classList.remove('first')
+    refs.main.classList.remove('voting')
+    refs.main.classList.remove('breeds')
+    refs.main.classList.toggle('gallery')
+    refs.btnVoting.classList.remove('active-btn')
+    refs.btnBreeds.classList.remove('active-btn')
+    refs.btnGallery.classList.toggle('active-btn')
+    if(!refs.main.classList.contains('gallery')) {
+        return createMainMarkup()
+    }  
+    refs.backgroundMain.innerHTML = ''
+    createGalaryMarkup()
+
+}

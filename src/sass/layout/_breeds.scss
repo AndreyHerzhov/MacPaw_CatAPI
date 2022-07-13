@@ -19,7 +19,7 @@
     background: #FF868E;
     border: none;
     border-radius: 20px;
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 #breeds_list{
@@ -222,6 +222,9 @@
         background: #FBE0DC;
         color: #FF868E;
     }
+    &:active{
+      transform: translateY(2px);
+    }
 }
 
 #next_btn{
@@ -237,6 +240,10 @@
         cursor: pointer;
         background: #FBE0DC;
         color: #FF868E;
+    }
+
+    &:active{
+      transform: translateY(2px);
     }
 }
  

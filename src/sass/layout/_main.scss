@@ -13,6 +13,12 @@
    padding-top: 30px;
  }
 
+ .main-container.gallery{
+  
+   background-image: none;
+   padding-top: 30px;
+ }
+
  .main-container.breeds{
   
    background-image: none;
@@ -39,4 +45,14 @@
  .active-btn{
     background: #FF868E;
         color:  #FFFFFF;
+ }
+
+ .search-form__field{
+   font-family: 'Jost';
+   font-style: normal;
+   font-weight: 400;
+   font-size: 20px;
+   line-height: 1.5;
+   /* identical to box height, or 150% */
+   color: #8C8C8C;
  }
