@@ -8,8 +8,13 @@ import update from 'bundle-text:../images/svg/update.svg'
 export function createMainMarkup() {
     refs.main.classList.add('first')
     refs.btnVoting.classList.remove('active-btn')
-    
+    refs.btnBreeds.classList.remove('active-btn')
+    refs.btnGallery.classList.remove('active-btn')
     refs.main.classList.remove('voting')
+    refs.main.classList.remove('breeds')
+    refs.main.classList.remove('gallery')
+    
+   
     refs.backgroundMain.classList.remove('main-container_voting')
     refs.main.innerHTML =   `
                     <div class="main-container_background">
@@ -206,7 +211,14 @@ export function createBreedsMarkup() {
                                 </button>
 
                                 <button type="button" id="breeds_list">All breeds</button>
-                                <button type="button" id="limit">Limit: 10</button>
+                                 
+                                <select class="filter-button" name="Page_limit" id="limit">
+                                     
+                                    <option value="10">Limit: 10</option>
+                                    <option value="15">Limit: 15</option>
+                                    <option value="20">Limit: 20</option>
+                                 </select>
+
                                 <button type="button" id="alphabet">${alphabet}</button>
                                 <button type="button" id="reverse">${reverse_alphabet}</button>
 
@@ -319,6 +331,7 @@ export function createGalaryMarkup(){
 
                                         <p class="filter-name">BREED</p>
                                         <select class="filter-button" name="Breed" id="breed">
+                                            <option id="abys" value="">All breeds</option>
                                             <option id="abys" value="abys">Abyssinian</option>
                                             <option id="aege" value="aege">Aegean</option>
                                             <option id="abob" value="abob">American Bobtail</option>

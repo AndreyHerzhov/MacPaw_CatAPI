@@ -7,7 +7,7 @@ const API_KEY = '984907ed-4e7f-4546-9c87-f9d0754e6fea'
 
 export default class CatApiService {
     constructor(){
-        this.breedId = 'asho';
+        this.breedId = ' ';
         this.page = 1;
         this.limit = 10;
         this.type = 'jpg,png,gif'

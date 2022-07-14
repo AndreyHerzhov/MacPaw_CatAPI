@@ -23,7 +23,7 @@ window.onload = function() {
     // catApiService.fetchRandomCat().then(data => console.log(data))
     // catApiService.fetchAllBreeds().then(data => console.log(data))
     // catApiService.pagination().then(data => console.log(data))
-    // catApiService.fetchAllFotos().then(data => console.log(data[0].url))
+    catApiService.fetchAllFotos().then(data => console.log(data[0].url))
     // catApiService.fetchCatById().then(data => console.log(data))
     // catApiService.fetchBreedsImg().then(data => console.log(data)) 
 
@@ -169,12 +169,25 @@ function openBreedsPage(e) {
     }
     
     function showNextTen(e) {
+
+        /*
+         *
+         *Variant when i created 7 new array. Each included 10 cats.
+         * 
+         */
         // if(initialIndex >= 6){
         //     console.log('This is the end')
         //     return
         // }
         // initialIndex += 1
         // console.log(initialIndex)
+        
+        /*
+         *
+         *Pagination with a help of slice increase by 10
+         * 
+         */
+
         if(end >=70){
             console.log('This is the end')
             return
