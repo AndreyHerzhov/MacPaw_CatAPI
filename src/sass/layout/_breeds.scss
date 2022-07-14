@@ -18,7 +18,7 @@
     color: #FFFFFF;
     background: #FF868E;
     border: none;
-    border-radius: 20px;
+    border-radius: 10px;
     margin-left: 10px;
 }
 
@@ -137,13 +137,38 @@
 
  .cat-breeds_image8 {
    grid-column: col1-start / col3-start;
-   grid-row: row5-start / row6-end;
+   grid-row: row5-start / row7-start;
  }
 
  .cat-breeds_image9 {
     grid-column: col3-start ;
     grid-row: row6-start;
  }
+
+ .cat-breeds_image10 {
+  grid-column: col1-start;
+  grid-row: row7-start / row9-start;
+}
+
+.cat-breeds_image11 {
+  grid-column: col2-start ;
+  grid-row: row7-start ;
+}
+
+.cat-breeds_image12 {
+  grid-column: col3-start;
+  grid-row: row7-start ;
+}
+
+.cat-breeds_image13 {
+  grid-column: col1-start;
+  grid-row: row9-start;
+}
+
+.cat-breeds_image14 {
+   grid-column: col2-start / col3-end;
+  grid-row: row8-start / row10-start;
+}
 
   .image0{
     object-fit: cover;
@@ -194,6 +219,31 @@
     object-fit: cover;
     height: 150px;
     width: 200px; 
+}
+.image10{
+  object-fit: cover;
+  width: 200px;
+  height: 300px; 
+}
+.image11{
+  object-fit: cover;
+  height: 150px;
+  width: 200px;
+}
+.image12{
+  object-fit: cover;
+  height: 150px;
+  width: 200px;
+}
+.image13{
+  object-fit: cover;
+  height: 150px;
+  width: 200px;
+}
+.image14{
+  object-fit: cover;
+  width: 420px;
+  height: 300px;
 }
 
 .pagination-button_wrapper{

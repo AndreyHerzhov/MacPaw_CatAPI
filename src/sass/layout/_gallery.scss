@@ -90,10 +90,26 @@
     margin-top: 10px;
 }
 .gallery-gallery{
+    display: grid;
+    grid-gap: 10px;
+    background-color: #fff;
+    color: #444;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #fff;
+    color: #444;
     width: 640px;
     height: 505px;
     margin-top: 20px;
-    background: #FF868E;
-    overflow-x: hidden;
-    overflow-y: auto;
+
+    grid-template-columns:  [col1-start] 200px   [col2-start] 200px  
+                            [col3-start] 200px   [col3-end];
+    grid-template-rows:     [row1-start] 150px 
+                            [row2-start] 140px [row3-start] 140px 
+                            [row4-start] 140px [row5-start]140px 
+                            [row6-start] 140px [row7-start]140px 
+                            [row8-start] 140px [row9-start]140px  
+                            [row10-start] 140px [row1-end];
+                             
+   
 }

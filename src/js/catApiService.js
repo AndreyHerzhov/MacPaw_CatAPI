@@ -11,6 +11,7 @@ export default class CatApiService {
         this.page = 1;
         this.limit = 10;
         this.type = 'jpg,png,gif'
+        this.order = 'DESC'
     }
 
     // show random Cat photo
@@ -26,7 +27,7 @@ export default class CatApiService {
 
     // Load linfo by breed_id. Several photos for one breed.(Breed ID, number of result, type of foto) Return full info.
     pagination() {
-        const url = `${BASE_URL}images/search?limit=${this.limit}&page=${this.page}&breed_ids=${this.breedId}&order=DESC&mime_types=${this.type}`;
+        const url = `${BASE_URL}images/search?limit=${this.limit}&page=${this.page}&breed_ids=${this.breedId}&order=${this.order}&mime_types=${this.type}`;
         return fetch(url)
           .then(response =>  response.json())
           .then((data) => {
@@ -90,5 +91,17 @@ export default class CatApiService {
     set id(newId) {
         this.breedId = newId
     }
+    // get limit() {
+    //     return this.limit
+    // }
+    // set limit(newLimit) {
+    //     this.limit = newLimit
+    // }
+    // get type() {
+    //     return this.type
+    // }
+    // set type(newType) {
+    //     this.type = newType
+    // }
 }
 

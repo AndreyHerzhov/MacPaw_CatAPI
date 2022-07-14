@@ -3,6 +3,7 @@ import mainPicture from '../images/hero/girl-and-pet.png'
 import iconLeft from 'bundle-text:../images/svg/left.svg'
 import alphabet from 'bundle-text:../images/svg/alfabet.svg'
 import reverse_alphabet from 'bundle-text:../images/svg/alphabet-reverse.svg'
+import update from 'bundle-text:../images/svg/update.svg'
 
 export function createMainMarkup() {
     refs.main.classList.add('first')
@@ -310,81 +311,81 @@ export function createGalaryMarkup(){
                                         <p class="filter-name">ORDER</p>
                                        
                                         <select class="filter-button" name="Order" id="order">
-                                            <option value="random">Random</option>
-                                            <option value="desc">Desc</option>
-                                            <option value="asc">Asc</option>
+                                            <option value="DESC">Random</option>
+                                            <option value="DESC">Desc</option>
+                                            <option value="ASC">Asc</option>
                                         </select>
                                          
 
                                         <p class="filter-name">BREED</p>
                                         <select class="filter-button" name="Breed" id="breed">
-                                            <option id="abys"value="10">Abyssinian</option>
-                                            <option id="aege"value="10">Aegean</option>
-                                            <option id="abob"value="10">American Bobtail</option>
-                                            <option id="acur"value="10">American Curl</option>
-                                            <option id="asho"value="10">American Shorthair</option>
-                                            <option id="awir"value="10">American Wirehair</option>
-                                            <option id="amau"value="10">Arabian Mau</option>
-                                            <option id="amis"value="10">Australian Mist</option>
-                                            <option id="bali"value="10">Balinese</option>
-                                            <option id="bamb"value="10">Bambino</option>
-                                            <option id="beng"value="10">Bengal</option>
-                                            <option id="birm"value="10">Birman</option>
-                                            <option id="bomb"value="10">Bombay</option>
-                                            <option id="bslo"value="10">British Longhair</option>
-                                            <option id="bsho"value="10">British Shorthair</option>
-                                            <option id="bure"value="10">Burmese</option>
-                                            <option id="buri"value="10">Burmilla</option>
-                                            <option id="cspa"value="10">California Spangled</option>
-                                            <option id="ctif"value="10">Chantilly-Tiffany</option>
-                                            <option id="char"value="10">Chartreux</option>
-                                            <option id="chau"value="10">Chausie</option>
-                                            <option id="chee"value="10">Cheetoh</option>
-                                            <option id="csho"value="10">Colorpoint Shorthair</option>
-                                            <option id="crex"value="10">Cornish Rex</option>
-                                            <option id="cymr"value="10">Cymric</option>
-                                            <option id="cypr"value="10">Cyprus</option>
-                                            <option id="drex"value="10">Devon Rex</option>
-                                            <option id="dons"value="10">Donskoy</option>
-                                            <option id="lihu"value="10">Dragon Li</option>
-                                            <option id="emau"value="10">Egyptian Mau</option>
-                                            <option id="ebur"value="10">European Burmese</option>
-                                            <option id="esho"value="10">Exotic Shorthair</option>
-                                            <option id="hbro"value="10">Havana Brown</option>
-                                            <option id="hima"value="10">Himalayan</option>
-                                            <option id="jbob"value="10">Japanese Bobtail</option>
-                                            <option id="java"value="10">Javanese</option>
-                                            <option id="khao"value="10">Khao Manee</option>
-                                            <option id="kora"value="10">Korat</option>
-                                            <option id="kuri"value="10">Kurilian</option>
-                                            <option id="lape"value="10">LaPerm</option>
-                                            <option id="mcoo"value="10">Maine Coon</option>
-                                            <option id="mala"value="10">Malayan</option>
-                                            <option id="manx"value="10">Manx</option>
-                                            <option id="munc"value="10">Munchkin</option>
-                                            <option id="nebe"value="10">Nebelung</option>
-                                            <option id="norw"value="10">Norwegian Forest Cat</option>
-                                            <option id="ocic"value="10">Ocicat</option>
-                                            <option id="orie"value="10">Oriental</option>
-                                            <option id="pers"value="10">Persian</option>
-                                            <option id="pixi"value="10">Pixie-bob</option>
-                                            <option id="raga"value="10">Ragamuffin</option>
-                                            <option id="ragd"value="10">Ragdoll</option>
-                                            <option id="rblu"value="10">Russian Blue</option>
-                                            <option id="sava"value="10">Savannah</option>
-                                            <option id="sfol"value="10">Scottish Fold</option>
-                                            <option id="srex"value="10">Selkirk Rex</option>
-                                            <option id="siam"value="10">Siamese</option>
-                                            <option id="sibe"value="10">Siberian</option>
-                                            <option id="sing"value="10">Singapura</option>
-                                            <option id="snow"value="10">Snowshoe</option>
-                                            <option id="soma"value="10">Somali</option>
-                                            <option id="sphy"value="10">Sphynx</option>
-                                            <option id="tonk"value="10">Tonkinese</option>
-                                            <option id="toyg"value="10">Toyger</option>
-                                            <option id="tang"value="10">Turkish Angora</option>
-                                            <option id="tvan"value="10">Turkish Van</option>
-                                            <option id="ycho"value="10">York Chocolate</option>
+                                            <option id="abys" value="abys">Abyssinian</option>
+                                            <option id="aege" value="aege">Aegean</option>
+                                            <option id="abob" value="abob">American Bobtail</option>
+                                            <option id="acur" value="acur">American Curl</option>
+                                            <option id="asho" value="asho">American Shorthair</option>
+                                            <option id="awir" value="awir">American Wirehair</option>
+                                            <option id="amau" value="amau">Arabian Mau</option>
+                                            <option id="amis" value="amis">Australian Mist</option>
+                                            <option id="bali" value="bali">Balinese</option>
+                                            <option id="bamb" value="bamb">Bambino</option>
+                                            <option id="beng" value="beng">Bengal</option>
+                                            <option id="birm" value="birm">Birman</option>
+                                            <option id="bomb" value="bomb">Bombay</option>
+                                            <option id="bslo" value="bslo">British Longhair</option>
+                                            <option id="bsho" value="bsho">British Shorthair</option>
+                                            <option id="bure" value="bure">Burmese</option>
+                                            <option id="buri" value="buri">Burmilla</option>
+                                            <option id="cspa" value="cspa">California Spangled</option>
+                                            <option id="ctif" value="ctif">Chantilly-Tiffany</option>
+                                            <option id="char" value="char">Chartreux</option>
+                                            <option id="chau" value="chau">Chausie</option>
+                                            <option id="chee" value="chee">Cheetoh</option>
+                                            <option id="csho" value="csho">Colorpoint Shorthair</option>
+                                            <option id="crex" value="crex">Cornish Rex</option>
+                                            <option id="cymr" value="cymr">Cymric</option>
+                                            <option id="cypr" value="cypr">Cyprus</option>
+                                            <option id="drex" value="drex">Devon Rex</option>
+                                            <option id="dons" value="dons">Donskoy</option>
+                                            <option id="lihu" value="lihu">Dragon Li</option>
+                                            <option id="emau" value="emau">Egyptian Mau</option>
+                                            <option id="ebur" value="ebur">European Burmese</option>
+                                            <option id="esho" value="esho">Exotic Shorthair</option>
+                                            <option id="hbro" value="hbro">Havana Brown</option>
+                                            <option id="hima" value="hima">Himalayan</option>
+                                            <option id="jbob" value="jbob">Japanese Bobtail</option>
+                                            <option id="java" value="java">Javanese</option>
+                                            <option id="khao" value="khao">Khao Manee</option>
+                                            <option id="kora" value="kora">Korat</option>
+                                            <option id="kuri" value="kuri">Kurilian</option>
+                                            <option id="lape" value="lape">LaPerm</option>
+                                            <option id="mcoo" value="mcoo">Maine Coon</option>
+                                            <option id="mala" value="mala">Malayan</option>
+                                            <option id="manx" value="manx">Manx</option>
+                                            <option id="munc" value="munc">Munchkin</option>
+                                            <option id="nebe" value="nebe">Nebelung</option>
+                                            <option id="norw" value="norw">Norwegian Forest Cat</option>
+                                            <option id="ocic" value="ocic">Ocicat</option>
+                                            <option id="orie" value="orie">Oriental</option>
+                                            <option id="pers" value="pers">Persian</option>
+                                            <option id="pixi" value="pixi">Pixie-bob</option>
+                                            <option id="raga" value="raga">Ragamuffin</option>
+                                            <option id="ragd" value="ragd">Ragdoll</option>
+                                            <option id="rblu" value="rblu">Russian Blue</option>
+                                            <option id="sava" value="sava">Savannah</option>
+                                            <option id="sfol" value="sfol">Scottish Fold</option>
+                                            <option id="srex" value="srex">Selkirk Rex</option>
+                                            <option id="siam" value="siam">Siamese</option>
+                                            <option id="sibe" value="sibe">Siberian</option>
+                                            <option id="sing" value="sing">Singapura</option>
+                                            <option id="snow" value="snow">Snowshoe</option>
+                                            <option id="soma" value="soma">Somali</option>
+                                            <option id="sphy" value="sphy">Sphynx</option>
+                                            <option id="tonk" value="tonk">Tonkinese</option>
+                                            <option id="toyg" value="toyg">Toyger</option>
+                                            <option id="tang" value="tang">Turkish Angora</option>
+                                            <option id="tvan" value="tvan">Turkish Van</option>
+                                            <option id="ycho" value="ycho">York Chocolate</option>
                                         </select>
                                          
                                         
@@ -394,99 +395,30 @@ export function createGalaryMarkup(){
                                         <p class="filter-name">TYPE</p>
                                         
                                         <select class="filter-button" name="Type" id="type">
-                                            <option value="all">All</option>
-                                            <option value="static">Static</option>
-                                            <option value="animated">Animated</option>
+                                            <option value="gif,jpg,png">All</option>
+                                            <option value="jpg,png">Static</option>
+                                            <option value="gif">Animated</option>
                                         </select>     
                                         
                                         
-                                        <p class="filter-name">LIMIT</p>
-                                            <select class="filter-button" name="Page_limit" id="page_limit">
-                                                <option value="10">10 items per page</option>
-                                                <option value="15">15 items per page</option>
-                                                <option value="20">20 items per page</option>
-                                            </select>
-                                         
+                                        <div class="limit_update">
+                                            <div class="limit_wrapper">
+                                            <p class="filter-name">LIMIT</p>
+                                                <select class="filter-button" name="Page_limit" id="page_limit">
+                                                    <option value="5">5 items per page</option>
+                                                    <option value="10">10 items per page</option>
+                                                    <option value="15">15 items per page</option>
+                                                    <option value="20">20 items per page</option>
+                                                </select>
+                                            </div>
+                                            <button type="button"  id="update">${update}</button>
+                                        </div>
                                     </div>
                                     
                                 </div>
 
                                 <div class="gallery-gallery">
-                                <p>Authentication
-                                Use the API Key that was emailed to you when you signed up to authenticate every request you send to the API.
-                                Without it you only have access to a tiny amount of data in a random order, and cannot upload, vote or favourite.
-                                You can send your API Key as a header or a query parameter
-                                If you don’t have an API Key, just head over to  and get one for free
                                 
-                                Request Header
-                                The best & most secure way to send it
-                                Set your API Key as the x-api-key header on evey request.
-                                e.g headers[“x-api-key”] = "ABC123"
-                                Query Parameter
-                                The least secure way, and not advisable unless there is no other way.
-                                Intended for use in IoT use-cases & backwards compatibility
-                                Pass as the api_key query parameter
-                                e.g. https://thecatapi.com/v1/images?api_key=ABC123
-                                Authentication
-Use the API Key that was emailed to you when you signed up to authenticate every request you send to the API.
-Without it you only have access to a tiny amount of data in a random order, and cannot upload, vote or favourite.
-You can send your API Key as a header or a query parameter
-If you don’t have an API Key, just head over to  and get one for free
-
-Request Header
-The best & most secure way to send it
-Set your API Key as the x-api-key header on evey request.
-e.g headers[“x-api-key”] = "ABC123"
-Query Parameter
-The least secure way, and not advisable unless there is no other way.
-Intended for use in IoT use-cases & backwards compatibility
-Pass as the api_key query parameter
-e.g. https://thecatapi.com/v1/images?api_key=ABC123
-Authentication
-Use the API Key that was emailed to you when you signed up to authenticate every request you send to the API.
-Without it you only have access to a tiny amount of data in a random order, and cannot upload, vote or favourite.
-You can send your API Key as a header or a query parameter
-If you don’t have an API Key, just head over to  and get one for free
-
-Request Header
-The best & most secure way to send it
-Set your API Key as the x-api-key header on evey request.
-e.g headers[“x-api-key”] = "ABC123"
-Query Parameter
-The least secure way, and not advisable unless there is no other way.
-Intended for use in IoT use-cases & backwards compatibility
-Pass as the api_key query parameter
-e.g. https://thecatapi.com/v1/images?api_key=ABC123
-Authentication
-Use the API Key that was emailed to you when you signed up to authenticate every request you send to the API.
-Without it you only have access to a tiny amount of data in a random order, and cannot upload, vote or favourite.
-You can send your API Key as a header or a query parameter
-If you don’t have an API Key, just head over to  and get one for free
-
-Request Header
-The best & most secure way to send it
-Set your API Key as the x-api-key header on evey request.
-e.g headers[“x-api-key”] = "ABC123"
-Query Parameter
-The least secure way, and not advisable unless there is no other way.
-Intended for use in IoT use-cases & backwards compatibility
-Pass as the api_key query parameter
-e.g. https://thecatapi.com/v1/images?api_key=ABC123
-Authentication
-Use the API Key that was emailed to you when you signed up to authenticate every request you send to the API.
-Without it you only have access to a tiny amount of data in a random order, and cannot upload, vote or favourite.
-You can send your API Key as a header or a query parameter
-If you don’t have an API Key, just head over to  and get one for free
-
-Request Header
-The best & most secure way to send it
-Set your API Key as the x-api-key header on evey request.
-e.g headers[“x-api-key”] = "ABC123"
-Query Parameter
-The least secure way, and not advisable unless there is no other way.
-Intended for use in IoT use-cases & backwards compatibility
-Pass as the api_key query parameter
-e.g. https://thecatapi.com/v1/images?api_key=ABC123</p>
                                 </div>  
                                 
                                    

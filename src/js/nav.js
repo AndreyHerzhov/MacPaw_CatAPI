@@ -11,6 +11,8 @@ refs.btnGallery.addEventListener('click', openGallaryPage)
 const catApiService = new CatApiService()
 let initialIndex = 0
 let breedsArr = []
+
+
  
 
 window.onload = function() {
@@ -24,6 +26,7 @@ window.onload = function() {
 
     
   };
+
 
 function showFullInfoByBreedId(e) {
     if(e.target.nodeName !== 'IMG'){
@@ -190,7 +193,7 @@ function openBreedsPage(e) {
 
 
 function openGallaryPage(e){
-    console.log('Click on galary')
+    
     refs.main.classList.remove('first')
     refs.main.classList.remove('voting')
     refs.main.classList.remove('breeds')
@@ -203,32 +206,55 @@ function openGallaryPage(e){
     }  
     refs.backgroundMain.innerHTML = ''
     createGalaryMarkup()
-    const breedBtn = document.querySelector('#breed') 
-    console.log(breedBtn)
-    breedBtn.addEventListener('change', function(e) {
-        console.log(e.target.value)
-    })
     
+    const updateBtn = document.querySelector('#update')
+    const order = document.querySelector('#order')
+    const breedId = document.querySelector('#breed')
+    const type = document.querySelector('#type')
+    const limit = document.querySelector('#page_limit')
+    updateBtn.addEventListener('click', showFilteredCatInGallery) 
+        
      
-  
     
-}
-
-// document.addEventListener('DOMContentLoaded', breedOptionsList)
-
-// // create markup for breed options
-// function breedOptionsList(e){
-//     catApiService.fetchAllBreeds().then(data => {
-//         const options =  data.map(el => 
-//             `<option id="${el.id}"value="10">${el.name}</option>`
+    function showFilteredCatInGallery(e) {
+        // console.log("ORDER :", order.value ,",",
+        //             "BREED ID :", breedId.value ,",", 
+        //             "PHOTO TYPE :", type.value ,",", 
+        //             "LIMIT :", limit.value ,"," )
+        const gallery = document.querySelector('.gallery-gallery')
+                    catApiService.id = breedId.value
+                    catApiService.limit = limit.value
+                    catApiService.type = type.value
+                    catApiService.order = order.value
+                    catApiService.pagination().then(data => {
+                        const  markup =  data.map((el,index) =>   
+        
+                    `
+                        <div class="box cat-breeds_image${index}">
+                                
+                                <img 
+                                src=${JSON.stringify(el.url)} 
+                                alt="${el.breeds[0].name}" 
+                                id="${el.breeds[0].id}"  
             
-//             ).join('')
-             
-//             console.log(options)
-//         })
-// }
-
-
-
-
+                                loading="lazy" 
+                                class="img image${index}"
+                                width ="200px"
+                                />       
+                                
+                        </div>
+                    `  
+                        
+                        ).join('')
+                        // console.log(markup)
+                        gallery.innerHTML = ''
+                        gallery.insertAdjacentHTML('afterbegin', markup)
+                    })
+                        
+                    
+                    }
+                } 
+                  
+ 
+ 
  
