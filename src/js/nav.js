@@ -11,6 +11,9 @@ refs.btnGallery.addEventListener('click', openGallaryPage)
 const catApiService = new CatApiService()
 let initialIndex = 0
 let breedsArr = []
+let allBreeds = []
+let start = 0;
+let end = 10;
 
 
  
@@ -100,10 +103,11 @@ function openBreedsPage(e) {
         const fifthTen = results.slice(40,50)
         const sixthTen = results.slice(50,60)
         const last = results.slice(60,64)
+        allBreeds.push(...results)
         breedsArr.push(firstTen, secondTen,thirdth,fourthTen,fifthTen,sixthTen,last)
-        // console.log(results)
+        // console.log(firstTen)
         
-        const  markup =  breedsArr[0].map((el,index) =>   
+        const  markup =  firstTen.map((el,index) =>   
             
         `
             <div class="box cat-breeds_image${index}">
@@ -132,14 +136,18 @@ function openBreedsPage(e) {
     nextBtn.addEventListener('click', showNextTen)
 
     function showPrevTen(e) {
-        if(initialIndex < 1){
-            console.log('This is the begining')
-            return
-        }
-        initialIndex -= 1
-        console.log(initialIndex)
-        const  markup =  breedsArr[initialIndex].map((el,index) =>   
-            
+        // if(initialIndex < 1){
+        //     console.log('This is the begining')
+        //     return
+        // }
+        // initialIndex -= 1
+        // console.log(initialIndex)
+
+        start -=10
+        end -= 10
+        console.log(start,end)
+        // const  markup =  breedsArr[initialIndex].map((el,index) =>   
+        const  markup =  allBreeds.slice(start,end).map((el,index) =>       
         `
             <div class="box cat-breeds_image${index}">
             
@@ -161,13 +169,22 @@ function openBreedsPage(e) {
     }
     
     function showNextTen(e) {
-        if(initialIndex >= 6){
+        // if(initialIndex >= 6){
+        //     console.log('This is the end')
+        //     return
+        // }
+        // initialIndex += 1
+        // console.log(initialIndex)
+        if(end >=70){
             console.log('This is the end')
             return
         }
-        initialIndex += 1
-        console.log(initialIndex)
-        const  markup =  breedsArr[initialIndex].map((el,index) =>   
+        start +=10
+        end += 10
+        console.log(start,end)
+
+        // const  markup =  breedsArr[initialIndex].map((el,index) => 
+        const  markup =  allBreeds.slice(start,end).map((el,index) =>    
             
         `
             <div class="box cat-breeds_image${index}">
