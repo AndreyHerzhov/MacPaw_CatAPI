@@ -17,7 +17,7 @@ window.onload = function() {
     
     // catApiService.fetchRandomCat().then(data => console.log(data))
     // catApiService.fetchAllBreeds().then(data => console.log(data))
-    catApiService.pagination().then(data => console.log(data))
+    // catApiService.pagination().then(data => console.log(data))
     // catApiService.fetchAllFotos().then(data => console.log(data[0].url))
     // catApiService.fetchCatById().then(data => console.log(data))
     // catApiService.fetchBreedsImg().then(data => console.log(data)) 
@@ -51,6 +51,7 @@ function openVotingPgae(e) {
             const imgUrl = data[0].url
             refs.main.classList.remove('breeds')
             refs.btnBreeds.classList.remove('active-btn')
+            refs.btnGallery.classList.remove('active-btn')
             refs.btnVoting.classList.toggle('active-btn')
             refs.backgroundMain.classList.toggle('container-main_voting')
             refs.main.classList.toggle('voting')
@@ -61,6 +62,7 @@ function openVotingPgae(e) {
             refs.backgroundMain.innerHTML = ''
             createVotingMarkup(imgUrl)
             console.log(imgUrl)
+            console.log(data)
     })
    
    
@@ -96,7 +98,7 @@ function openBreedsPage(e) {
         const sixthTen = results.slice(50,60)
         const last = results.slice(60,64)
         breedsArr.push(firstTen, secondTen,thirdth,fourthTen,fifthTen,sixthTen,last)
-        console.log(results)
+        // console.log(results)
         
         const  markup =  breedsArr[0].map((el,index) =>   
             
@@ -201,5 +203,32 @@ function openGallaryPage(e){
     }  
     refs.backgroundMain.innerHTML = ''
     createGalaryMarkup()
-
+    const breedBtn = document.querySelector('#breed') 
+    console.log(breedBtn)
+    breedBtn.addEventListener('change', function(e) {
+        console.log(e.target.value)
+    })
+    
+     
+  
+    
 }
+
+// document.addEventListener('DOMContentLoaded', breedOptionsList)
+
+// // create markup for breed options
+// function breedOptionsList(e){
+//     catApiService.fetchAllBreeds().then(data => {
+//         const options =  data.map(el => 
+//             `<option id="${el.id}"value="10">${el.name}</option>`
+            
+//             ).join('')
+             
+//             console.log(options)
+//         })
+// }
+
+
+
+
+ 
