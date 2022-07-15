@@ -210,9 +210,14 @@ export function createBreedsMarkup() {
                                     id="breeds_main">BREEDS
                                 </button>
 
-                                <button type="button" id="breeds_list">All breeds</button>
-                                 
-                                <select class="filter-button" name="Page_limit" id="limit">
+                                
+                                
+                                <select class="filter-button_breeds" name="Breed_list" id="breeds_options">
+                                    <option value="10">All breeds</option>
+                                     
+                                </select> 
+
+                                <select class="filter-button_breeds" name="Page_limit" id="limit">
                                      
                                     <option value="10">Limit: 10</option>
                                     <option value="15">Limit: 15</option>

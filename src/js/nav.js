@@ -9,12 +9,13 @@ refs.logo.addEventListener('click', createMainMarkup)
 refs.btnGallery.addEventListener('click', openGallaryPage)
 
 const catApiService = new CatApiService()
+let initianlPage = 0
 let initialIndex = 0
 let breedsArr = []
 let allBreeds = []
 let start = 0;
 let end = 10;
-
+const numberOfBreeds = 67
 
  
 
@@ -23,7 +24,7 @@ window.onload = function() {
     // catApiService.fetchRandomCat().then(data => console.log(data))
     // catApiService.fetchAllBreeds().then(data => console.log(data))
     // catApiService.pagination().then(data => console.log(data))
-    catApiService.fetchAllFotos().then(data => console.log(data[0].url))
+    // catApiService.fetchAllFotos().then(data => console.log(data[0].url))
     // catApiService.fetchCatById().then(data => console.log(data))
     // catApiService.fetchBreedsImg().then(data => console.log(data)) 
 
@@ -92,22 +93,32 @@ function openBreedsPage(e) {
    
     createBreedsMarkup()  
     const breedsGallery = document.querySelector('.breeds-gallery')
+    const breedsList = document.querySelector('#breeds_options')
     breedsGallery.addEventListener('click', showFullInfoByBreedId)
+    catApiService.limit = 67
+    catApiService.page = 0
     catApiService.fetchAllBreeds().then(data => {
         
-        const results = data.filter(el => el.image !== undefined) 
-        const firstTen = results.slice(0,10)
-        const secondTen = results.slice(10,20)
-        const thirdth = results.slice(20,30)
-        const fourthTen = results.slice(30,40)
-        const fifthTen = results.slice(40,50)
-        const sixthTen = results.slice(50,60)
-        const last = results.slice(60,64)
-        allBreeds.push(...results)
-        breedsArr.push(firstTen, secondTen,thirdth,fourthTen,fifthTen,sixthTen,last)
-        // console.log(firstTen)
+        const resultWithImg = data.filter(el => el.image !== undefined) 
+        const breedsOptions = resultWithImg.map(el => 
+           ` 
+           <option value="${el.id}">${el.name}</option>
+           `
+            )
+
+        breedsList.insertAdjacentHTML('beforeend', breedsOptions)  
+
+    })
+
+        catApiService.limit = 10
+        catApiService.page = 0
         
-        const  markup =  firstTen.map((el,index) =>   
+        
+        catApiService.fetchAllBreeds().then(data => {
+        
+            const resultWithImg = data.filter(el => el.image !== undefined) 
+        
+            const  markup =  resultWithImg.map((el,index) =>   
             
         `
             <div class="box cat-breeds_image${index}">
@@ -128,98 +139,99 @@ function openBreedsPage(e) {
           ).join('')
          
           breedsGallery.insertAdjacentHTML('afterbegin', markup)
-          
-    })
+        })
+
     const prevBtn = document.querySelector('#prev_btn')
     const nextBtn = document.querySelector('#next_btn')
+    const limitOption = document.querySelector("#limit")
+    const breedNameOption = document.querySelector("#breeds_options")
+    breedNameOption.addEventListener('change', function(e) {
+        console.log(e.target.value)
+        breedsGallery.innerHTML = ''
+    
+    })
+    limitOption.addEventListener('change', function(e) {console.log(e.target.value)})
     prevBtn.addEventListener('click', showPrevTen)
     nextBtn.addEventListener('click', showNextTen)
 
     function showPrevTen(e) {
-        // if(initialIndex < 1){
-        //     console.log('This is the begining')
-        //     return
-        // }
-        // initialIndex -= 1
-        // console.log(initialIndex)
-
-        start -=10
-        end -= 10
-        console.log(start,end)
-        // const  markup =  breedsArr[initialIndex].map((el,index) =>   
-        const  markup =  allBreeds.slice(start,end).map((el,index) =>       
-        `
-            <div class="box cat-breeds_image${index}">
-            
-                    <img 
-                            src=${JSON.stringify(el.image.url)} 
-                            alt="${el.name}" 
-                            id="${el.id}"  
-
-                            loading="lazy" 
-                            class="img image${index}"
-                            width ="200px"
-                    />       
-                       
-             </div>
-        `  
-           
-          ).join('')
-        breedsGallery.innerHTML = markup
-    }
-    
-    function showNextTen(e) {
-
-        /*
-         *
-         *Variant when i created 7 new array. Each included 10 cats.
-         * 
-         */
-        // if(initialIndex >= 6){
-        //     console.log('This is the end')
-        //     return
-        // }
-        // initialIndex += 1
-        // console.log(initialIndex)
-        
-        /*
-         *
-         *Pagination with a help of slice increase by 10
-         * 
-         */
-
-        if(end >=70){
-            console.log('This is the end')
+        if(initianlPage <= 0){
+            console.log("This is the first page")
             return
         }
-        start +=10
-        end += 10
-        console.log(start,end)
-
-        // const  markup =  breedsArr[initialIndex].map((el,index) => 
-        const  markup =  allBreeds.slice(start,end).map((el,index) =>    
+        initianlPage -= 1
+        catApiService.page = initianlPage
+        console.log(catApiService.page)
+        
+        catApiService.fetchAllBreeds().then(data => {
+        
+            const resultWithImg = data.filter(el => el.image !== undefined) 
+        
+            const  markup =  resultWithImg.map((el,index) =>   
             
         `
             <div class="box cat-breeds_image${index}">
-            
+                    
                     <img 
-                            src=${JSON.stringify(el.image.url)} 
-                            alt="${el.name}" 
-                            id="${el.id}"  
+                    src=${JSON.stringify(el.image.url)} 
+                    alt="${el.name}" 
+                    id="${el.id}"  
 
-                            loading="lazy" 
-                            class="img image${index}"
-                            width ="200px"
+                    loading="lazy" 
+                    class="img image${index}"
+                    width ="200px"
                     />       
-                       
-             </div>
+                    
+            </div>
         `  
            
           ).join('')
-        breedsGallery.innerHTML = markup
-              
+          breedsGallery.innerHTML = ''
+          breedsGallery.insertAdjacentHTML('afterbegin', markup)
+        })
+        }
+    
+    function showNextTen(e) {
+        if(initianlPage >= 6){
+            console.log("There are no cats more")
+            return
+        }
+        initianlPage += 1
+        catApiService.page = initianlPage 
+        console.log(catApiService.page)
+        
+        
+        catApiService.fetchAllBreeds().then(data => {
+        
+            const resultWithImg = data.filter(el => el.image !== undefined) 
+        
+            const  markup =  resultWithImg.map((el,index) =>   
+            
+        `
+            <div class="box cat-breeds_image${index}">
+                    
+                    <img 
+                    src=${JSON.stringify(el.image.url)} 
+                    alt="${el.name}" 
+                    id="${el.id}"  
+
+                    loading="lazy" 
+                    class="img image${index}"
+                    width ="200px"
+                    />       
+                    
+            </div>
+        `  
+           
+          ).join('')
+          breedsGallery.innerHTML = ''
+          breedsGallery.insertAdjacentHTML('afterbegin', markup)
+        })
+        }
     }
-}
+        
+  
+
 
 
 function openGallaryPage(e){

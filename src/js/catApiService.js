@@ -7,8 +7,8 @@ const API_KEY = '984907ed-4e7f-4546-9c87-f9d0754e6fea'
 
 export default class CatApiService {
     constructor(){
-        this.breedId = ' ';
-        this.page = 1;
+        this.breedId = '';
+        this.page = 0;
         this.limit = 10;
         this.type = 'jpg,png,gif'
         this.order = 'DESC'
@@ -39,7 +39,7 @@ export default class CatApiService {
    
    // return 67 breeds with full info about Cat
     fetchAllBreeds() {
-        const url = `${BASE_URL}breeds`;
+        const url = `${BASE_URL}breeds?limit=${this.limit}&page=${this.page}`;
         return fetch(url)
           .then(response =>  response.json())
           .then((data) => {
