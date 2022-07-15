@@ -1,5 +1,5 @@
 import { refs } from './refs'
-import { createVotingMarkup, createBreedsMarkup, createMainMarkup,createGalaryMarkup, createBreedsGaleryMarkup } from './render_markup'
+import { createVotingMarkup, createBreedsMarkup, createMainMarkup,createGalaryMarkup, createBreedsGaleryMarkup, createBreedFullInfoMarkup } from './render_markup'
 import CatApiService from "./catApiService";
  
 
@@ -38,6 +38,7 @@ function showFullInfoByBreedId(e) {
         return
     }
     catApiService.id = e.target.id
+    // catApiService.id = e.target.value
     catApiService.pagination().then(data => {
         const temperament = data[0].breeds[0].temperament;
         const origin = data[0].breeds[0].origin
@@ -145,11 +146,29 @@ function openBreedsPage(e) {
     const nextBtn = document.querySelector('#next_btn')
     const limitOption = document.querySelector("#limit")
     const breedNameOption = document.querySelector("#breeds_options")
+    const mainBreedData = document.querySelector('.main-container_breeds-data')
     breedNameOption.addEventListener('change', function(e) {
+         
+
         console.log(e.target.value)
-        breedsGallery.innerHTML = ''
-    
+        catApiService.id = e.target.value
+    catApiService.pagination().then(data => {
+        const img = data[0].url
+        const temperament = data[0].breeds[0].temperament;
+        const origin = data[0].breeds[0].origin
+        const weight =   data[0].breeds[0].weight.metric  
+        const life =  data[0].breeds[0].life_span 
+        const breedId = data[0].breeds[0].id
+        console.log("temperament:",temperament,"origin:",origin,weight, "kg", life, "years")
+        console.log(data[0])
+        mainBreedData.innerHTML = ''
+        const fullInfo = createBreedFullInfoMarkup(img,breedId,temperament,origin,weight,life)     
+        console.log(fullInfo)
+        mainBreedData.insertAdjacentHTML('afterbegin', fullInfo)
     })
+
+
+})
     limitOption.addEventListener('change', function(e) {console.log(e.target.value)})
     prevBtn.addEventListener('click', showPrevTen)
     nextBtn.addEventListener('click', showNextTen)
@@ -161,7 +180,7 @@ function openBreedsPage(e) {
         }
         initianlPage -= 1
         catApiService.page = initianlPage
-        console.log(catApiService.page)
+        
         
         catApiService.fetchAllBreeds().then(data => {
         
@@ -198,7 +217,6 @@ function openBreedsPage(e) {
         }
         initianlPage += 1
         catApiService.page = initianlPage 
-        console.log(catApiService.page)
         
         
         catApiService.fetchAllBreeds().then(data => {

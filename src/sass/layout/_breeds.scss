@@ -297,3 +297,44 @@
     }
 }
  
+
+#breed_id{
+  margin-left: 10px;
+  width: 90px;
+  height: 40px;
+  background: #FF868E;
+  border-radius: 10px;
+}
+
+.breeds_full-info-container{
+   
+  margin-top: 20px;
+}
+
+.breed-img{
+  width: 100%;
+  height: 360px;
+  background: #8C8C8C;
+  border-radius: 20px;
+}
+
+.breed_info{
+  position: relative;
+ 
+  margin-top: 50px;
+  width: 100%;
+  height: 204px;
+  border: 2px solid #FBE0DC;
+  border-radius: 20px;
+
+}
+
+.full-info_breed-name{
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 193px;
+  height: 62px;
+  background: #FFFFFF;
+  border-radius: 20px;
+}

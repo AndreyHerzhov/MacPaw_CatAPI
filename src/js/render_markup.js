@@ -448,3 +448,70 @@ export function createGalaryMarkup(){
     `
 
 }
+
+export function createBreedFullInfoMarkup(url,id,temperament,origin,weight,lifespan) {
+    return `
+        <div class="main-container_breeds-full-info">
+    
+    
+                <div class="breeds-button_wrapper">
+                    
+                    <button
+                        class="breeds-button_back"
+                        type="button"
+                        data-back="back"
+                        id="back">${iconLeft}
+                    </button>
+                    
+                    <button
+                        class="breeds-button_right"
+                        type="button"
+                        data-breeds="breeds_main"
+                        id="breeds_main">BREEDS
+                    </button>
+
+                    <button
+                    class="breeds-button_id"
+                    type="button"
+                    data-id="breed_id"
+                    id="breed_id">BreedID
+                    </button>
+                        
+                
+                </div>  
+                
+                <div class="breeds_full-info-container">
+                    <div class="breed-img">
+                        <img src="${url}" alt="" srcset="">
+                    </div>
+
+                    <div class="breed_info">
+                        <button type="button" class="full-info_breed-name">${id}</button>
+
+                        <div class="temperament-info>
+                        <h2>Temperament</h2>
+                        <p>${temperament}</p>
+                        </div>
+
+                        <div class="other-info>
+                            <h2>Origin</h2>
+                            <p>${origin}</p>
+
+                            <h2>Weight</h2>
+                            <p>${weight}</p>
+
+                            <h2>Life span</h2>
+                            <p>${lifespan}</p>
+
+
+
+
+                        </div>
+                    </div>
+
+                </div>  
+
+
+         </div>     
+`      
+}

@@ -39,7 +39,15 @@
 }
 
 #breeds_options{
+    display: flex;
+    align-content: center;
     margin-left: 10px;
+    padding: 10px 8px;
+    
+}
+
+#limit{
+    padding: 10px 8px;
 }
 
 .filter-button_breeds{
