@@ -20,7 +20,7 @@ let end = 10;
 const numberOfBreeds = 67
 let photoIndex = 0
 let currentLimit = 10
-
+const savedCatsArr = []
  
 
 window.onload = function() {
@@ -33,6 +33,15 @@ window.onload = function() {
     // catApiService.fetchBreedsImg().then(data => console.log(data)) 
 
     
+  };
+
+  const save = (key, value) => {
+    try {
+      const catArr = JSON.stringify(value);
+      localStorage.setItem(key, catArr);
+    } catch (error) {
+      console.error("Set state error: ", error.message);
+    }
   };
 
   function showFullInfoByBreedId(e) {
@@ -56,14 +65,27 @@ window.onload = function() {
         const life =  data[0].breeds[0].life_span 
         const breedName = data[0].breeds[0].name
         const breedId = data[0].breeds[0].id
-        localStorage.setItem("cat-name", JSON.stringify(breedName))
+
+        savedCatsArr.push(data[0].breeds)
+        
+        save("arrOfCatsInfo", savedCatsArr)  
+        const savedInfo = JSON.parse(localStorage.getItem("arrOfCatsInfo"))
+        console.log(savedInfo)
+        
+        
+
+
+
+        
+
+
         data.map(el => breedPhotosArr.push(el.url))
         Notiflix.Notify.success(`There are ${breedPhotosArr.length} photos`) 
         // console.log(img,temperament,origin,weight,life,breedName,breedId)
         mainBreedData.innerHTML = ''
         const fullInfo = createBreedFullInfoMarkup(img,breedId,breedName,temperament,origin,weight,life)     
         mainBreedData.insertAdjacentHTML('afterbegin', fullInfo)
-
+ 
         const nextFullBtn = document.querySelector('#next_full')
         const prevFullBtn = document.querySelector('#prev_full')
         const imgToChange = document.querySelector('.breeds_full-info-img')
@@ -152,7 +174,7 @@ function openBreedsPage(e) {
     createBreedsMarkup()  
     const breedsGallery = document.querySelector('.breeds-gallery')
     const breedsList = document.querySelector('#breeds_options')    
-    console.log(breedsGallery.style)
+     
     breedsGallery.addEventListener('click', showFullInfoByBreedId)
     catApiService.limit = 67
     catApiService.page = 0
