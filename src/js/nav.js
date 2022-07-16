@@ -42,10 +42,11 @@ window.onload = function() {
     }
     const mainBreedData = document.querySelector('.main-container_breeds-data')
     catApiService.id = e.target.id
-    // catApiService.id = e.value
+     
         catApiService.limit = 100
+
     catApiService.pagination().then(data => {
-        // console.log(data)
+      
         window.addEventListener('keydown', changePhotoByKey);
          
         const img = data[0].url
@@ -55,6 +56,7 @@ window.onload = function() {
         const life =  data[0].breeds[0].life_span 
         const breedName = data[0].breeds[0].name
         const breedId = data[0].breeds[0].id
+        localStorage.setItem("cat-name", JSON.stringify(breedName))
         data.map(el => breedPhotosArr.push(el.url))
         Notiflix.Notify.success(`There are ${breedPhotosArr.length} photos`) 
         // console.log(img,temperament,origin,weight,life,breedName,breedId)
@@ -149,7 +151,8 @@ function openBreedsPage(e) {
    
     createBreedsMarkup()  
     const breedsGallery = document.querySelector('.breeds-gallery')
-    const breedsList = document.querySelector('#breeds_options')
+    const breedsList = document.querySelector('#breeds_options')    
+    console.log(breedsGallery.style)
     breedsGallery.addEventListener('click', showFullInfoByBreedId)
     catApiService.limit = 67
     catApiService.page = 0
