@@ -449,7 +449,7 @@ export function createGalaryMarkup(){
 
 }
 
-export function createBreedFullInfoMarkup(url,name,temperament,origin,weight,lifespan) {
+export function createBreedFullInfoMarkup(url,id,name,temperament,origin,weight,lifespan) {
     return `
         <div class="main-container_breeds-full-info">
     
@@ -474,7 +474,7 @@ export function createBreedFullInfoMarkup(url,name,temperament,origin,weight,lif
                     class="breeds-button_id"
                     type="button"
                     data-id="breed_id"
-                    id="breed_id">BreedID
+                    id="breed_id">${id}
                     </button>
                         
                 

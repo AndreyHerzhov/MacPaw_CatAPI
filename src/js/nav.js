@@ -1,6 +1,7 @@
 import { refs } from './refs'
 import { createVotingMarkup, createBreedsMarkup, createMainMarkup,createGalaryMarkup, createBreedsGaleryMarkup, createBreedFullInfoMarkup } from './render_markup'
 import CatApiService from "./catApiService";
+import Notiflix from 'notiflix';
  
 
 refs.btnVoting.addEventListener('click', openVotingPgae)
@@ -17,6 +18,7 @@ let allBreeds = []
 let start = 0;
 let end = 10;
 const numberOfBreeds = 67
+let photoIndex = 0
 
  
 
@@ -55,7 +57,7 @@ function showFullInfoByBreedId(e) {
  
 function openVotingPgae(e) {
     e.preventDefault()
-    
+    breedPhotosArr = []
     catApiService.fetchRandomCat().then(data => {
             const imgUrl = data[0].url
             refs.main.classList.remove('breeds')
@@ -80,6 +82,7 @@ function openVotingPgae(e) {
 
 function openBreedsPage(e) {
     e.preventDefault()
+    breedPhotosArr = []
     refs.main.classList.remove('first')
     refs.main.classList.remove('voting')
     refs.main.classList.remove('gallery')
@@ -134,7 +137,7 @@ function openBreedsPage(e) {
                     class="img image${index}"
                     width ="200px"
                     />       
-                    
+                    <div class="breed-name">${el.name}</div>
             </div>
         `  
            
@@ -152,19 +155,37 @@ function openBreedsPage(e) {
         catApiService.id = e.target.value
         catApiService.limit = 100
     catApiService.pagination().then(data => {
-
+        console.log(data)
+        window.addEventListener('keydown', changePhotoByKey);
         const img = data[0].url
         const temperament = data[0].breeds[0].temperament;
         const origin = data[0].breeds[0].origin
         const weight =   data[0].breeds[0].weight.metric  
         const life =  data[0].breeds[0].life_span 
         const breedName = data[0].breeds[0].name
+        const breedId = data[0].breeds[0].id
         data.map(el => breedPhotosArr.push(el.url))
-        console.log(breedPhotosArr)
+        // console.log(breedPhotosArr)
         mainBreedData.innerHTML = ''
-        const fullInfo = createBreedFullInfoMarkup(img,breedName,temperament,origin,weight,life)     
-        
+        const fullInfo = createBreedFullInfoMarkup(img,breedId,breedName,temperament,origin,weight,life)     
         mainBreedData.insertAdjacentHTML('afterbegin', fullInfo)
+
+
+        const imgToChange = document.querySelector('.breeds_full-info-img')
+        // console.log(imgToChange)
+        function changePhotoByKey(e) {
+            if(e.key === 'ArrowRight' && photoIndex < breedPhotosArr.length - 1){
+                photoIndex += 1
+            } else if(e.key === 'ArrowLeft' && photoIndex > 0){
+                photoIndex -= 1
+            } else {
+                 
+                Notiflix.Notify.info('There are no more photos') 
+            }
+            imgToChange.src = breedPhotosArr[photoIndex]
+            console.log(photoIndex)
+            console.log(breedPhotosArr[photoIndex])
+        }
     })
 
 
@@ -253,7 +274,7 @@ function openBreedsPage(e) {
 
 
 function openGallaryPage(e){
-    
+    breedPhotosArr = []
     refs.main.classList.remove('first')
     refs.main.classList.remove('voting')
     refs.main.classList.remove('breeds')

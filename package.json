@@ -18,7 +18,8 @@
     "url": "https://github.com/AndreyHerzhov/MacPaw_CatAPI/issues"
   },
   "dependencies": {
-    "modern-normalize": "^1.1.0"
+    "modern-normalize": "^1.1.0",
+    "notiflix": "^3.2.5"
   },
   "devDependencies": {
     "@parcel/transformer-inline-string": "^2.6.0",
