@@ -9,6 +9,7 @@ refs.logo.addEventListener('click', createMainMarkup)
 refs.btnGallery.addEventListener('click', openGallaryPage)
 
 const catApiService = new CatApiService()
+let breedPhotosArr = []
 let initianlPage = 0
 let initialIndex = 0
 let breedsArr = []
@@ -148,22 +149,21 @@ function openBreedsPage(e) {
     const breedNameOption = document.querySelector("#breeds_options")
     const mainBreedData = document.querySelector('.main-container_breeds-data')
     breedNameOption.addEventListener('change', function(e) {
-         
-
-        console.log(e.target.value)
         catApiService.id = e.target.value
+        catApiService.limit = 100
     catApiService.pagination().then(data => {
+
         const img = data[0].url
         const temperament = data[0].breeds[0].temperament;
         const origin = data[0].breeds[0].origin
         const weight =   data[0].breeds[0].weight.metric  
         const life =  data[0].breeds[0].life_span 
-        const breedId = data[0].breeds[0].id
-        console.log("temperament:",temperament,"origin:",origin,weight, "kg", life, "years")
-        console.log(data[0])
+        const breedName = data[0].breeds[0].name
+        data.map(el => breedPhotosArr.push(el.url))
+        console.log(breedPhotosArr)
         mainBreedData.innerHTML = ''
-        const fullInfo = createBreedFullInfoMarkup(img,breedId,temperament,origin,weight,life)     
-        console.log(fullInfo)
+        const fullInfo = createBreedFullInfoMarkup(img,breedName,temperament,origin,weight,life)     
+        
         mainBreedData.insertAdjacentHTML('afterbegin', fullInfo)
     })
 

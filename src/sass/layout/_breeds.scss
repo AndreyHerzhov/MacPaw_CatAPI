@@ -311,16 +311,11 @@
   margin-top: 20px;
 }
 
-.breed-img{
-  width: 100%;
-  height: 360px;
-  background: #8C8C8C;
-  border-radius: 20px;
-}
 
 .breed_info{
+  padding-left: 40px;
+  padding-right: 40px;  
   position: relative;
- 
   margin-top: 50px;
   width: 100%;
   height: 204px;
@@ -337,4 +332,76 @@
   height: 62px;
   background: #FFFFFF;
   border-radius: 20px;
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 1.1;
+  color: #1D1D1D;
+  border: none;
+}
+
+.breed-img{
+  display: flex;
+  justify-content: center;
+  height: 360px;
+  background: #f1f1f1;
+  border-radius: 20px;
+}
+
+
+.breeds_full-info-img{
+   
+  border-radius: 20px;
+  object-fit: contain;
+}
+
+.breed_desc{
+  margin-top: 38px;
+  text-align: center;
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.33;
+  color: #8C8C8C;
+}
+
+.full-info_wrapper{
+  display: flex;
+  margin-top: 20px;
+}
+
+.other-info{
+  width: 50%;
+}
+
+.other-info_wrapper{
+  display: flex;
+  margin-bottom: 5px;
+}
+
+.temperament-info{
+ 
+  width: 50%;
+  height: 69px;
+  
+}
+
+.full-info_title{
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.43;
+  color: #1D1D1D;
+}
+
+.full-info_description{
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.43;
+  color: #8C8C8C;
 }

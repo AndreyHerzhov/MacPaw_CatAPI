@@ -449,7 +449,7 @@ export function createGalaryMarkup(){
 
 }
 
-export function createBreedFullInfoMarkup(url,id,temperament,origin,weight,lifespan) {
+export function createBreedFullInfoMarkup(url,name,temperament,origin,weight,lifespan) {
     return `
         <div class="main-container_breeds-full-info">
     
@@ -482,36 +482,47 @@ export function createBreedFullInfoMarkup(url,id,temperament,origin,weight,lifes
                 
                 <div class="breeds_full-info-container">
                     <div class="breed-img">
-                        <img src="${url}" alt="" srcset="">
+                        <img src="${url}" alt="" srcset="" class="breeds_full-info-img">
                     </div>
 
                     <div class="breed_info">
-                        <button type="button" class="full-info_breed-name">${id}</button>
+                        <button type="button" class="full-info_breed-name">${name}</button>
 
-                        <div class="temperament-info>
-                        <h2>Temperament</h2>
-                        <p>${temperament}</p>
+                        <h2 class="breed_desc">Family companion cat</h2>
+
+                        <div class="full-info_wrapper">
+                            <div class="temperament-info">
+                            <h2 class="full-info_title">Temperament:</h2>
+                            <p class="full-info_description">${temperament}</p>
+                            </div>
+
+                            <div class="other-info">
+                                <div class="other-info_wrapper">
+                                    <h2 class="full-info_title">Origin: </h2>
+                                    <p class="full-info_description">${origin}</p>
+                                </div>
+
+                                <div class="other-info_wrapper">
+                                    <h2 class="full-info_title">Weight: </h2>
+                                    <p class="full-info_description">${weight}</p>
+                                </div>
+
+                                <div class="other-info_wrapper">
+                                    <h2 class="full-info_title">Life span: </h2>
+                                    <p class="full-info_description">${lifespan}</p>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="other-info>
-                            <h2>Origin</h2>
-                            <p>${origin}</p>
-
-                            <h2>Weight</h2>
-                            <p>${weight}</p>
-
-                            <h2>Life span</h2>
-                            <p>${lifespan}</p>
-
-
-
-
-                        </div>
                     </div>
 
                 </div>  
 
 
-         </div>     
+            </div>     
+                               
+
+                                
+             
 `      
 }
