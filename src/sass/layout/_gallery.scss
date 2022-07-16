@@ -98,7 +98,7 @@
     background-color: #fff;
     color: #444;
     width: 640px;
-    // height: 505px;
+    height: 505px;
     margin-top: 20px;
 
     grid-template-columns:  [col1-start] 200px   [col2-start] 200px  
@@ -108,7 +108,8 @@
                             [row4-start] 140px [row5-start]140px 
                             [row6-start] 140px [row7-start]140px 
                             [row8-start] 140px [row9-start]140px  
-                            [row10-start] 140px [row11-end];
+                            [row10-start] 140px [row11-start]140px
+                            [row12-start] 140px [row13-end];
                              
    
 }
