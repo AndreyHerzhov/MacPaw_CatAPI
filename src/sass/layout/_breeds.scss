@@ -293,9 +293,20 @@
     align-items: center;
     margin: 0 auto;
 }
+
+.full-info_btn-wrapper{
+  position: absolute;
+  bottom: 0px;
+  width: 640px;
+  height: 68px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto;
+}
  
 
-#prev_btn{
+.pagination-btn{
     opacity: 1;
     height: 40px;
     width: 122px;
@@ -315,23 +326,11 @@
 }
 
 #next_btn{
-    height: 40px;
-    width: 122px;
     margin-left: 40px;
-    background: #F8F8F7;
-    border-radius: 10px;
-    border: none;
-    color: #8C8C8C;
+}
 
-    &:hover{
-        cursor: pointer;
-        background: #FBE0DC;
-        color: #FF868E;
-    }
-
-    &:active{
-      transform: translateY(2px);
-    }
+#next_full{
+  margin-left: 20px;
 }
  
 
@@ -379,6 +378,7 @@
 }
 
 .breed-img{
+  position: relative;
   display: flex;
   justify-content: center;
   height: 360px;
@@ -388,7 +388,7 @@
 
 
 .breeds_full-info-img{
-   
+  
   border-radius: 20px;
   object-fit: contain;
 }

@@ -483,6 +483,10 @@ export function createBreedFullInfoMarkup(url,id,name,temperament,origin,weight,
                 <div class="breeds_full-info-container">
                     <div class="breed-img">
                         <img src="${url}" alt="" srcset="" class="breeds_full-info-img">
+                        <div class="full-info_btn-wrapper">
+                                <button type="button-bottom" class="pagination-btn" id="prev_full">PREV</button>
+                                <button type="button-bottom" class="pagination-btn" id="next_full">NEXT</button>
+                        </div>
                     </div>
 
                     <div class="breed_info">

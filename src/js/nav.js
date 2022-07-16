@@ -35,28 +35,131 @@ window.onload = function() {
   };
 
 
-function showFullInfoByBreedId(e) {
+
+
+  function showFullInfoByBreedId(e) {
+    photoIndex = 0
     if(e.target.nodeName !== 'IMG'){
-        // console.log("Not img")
         return
     }
+    const mainBreedData = document.querySelector('.main-container_breeds-data')
     catApiService.id = e.target.id
-    // catApiService.id = e.target.value
+    // catApiService.id = e.value
+        catApiService.limit = 100
     catApiService.pagination().then(data => {
+        // console.log(data)
+        window.addEventListener('keydown', changePhotoByKey);
+        const img = data[0].url
         const temperament = data[0].breeds[0].temperament;
         const origin = data[0].breeds[0].origin
-        const weight =  data[0].breeds[0].weight.metric
-        const life = (data[0].breeds[0].life_span, 'kg')
-        console.log(temperament,origin,weight,life)
-        console.log(data)
+        const weight =   data[0].breeds[0].weight.metric  
+        const life =  data[0].breeds[0].life_span 
+        const breedName = data[0].breeds[0].name
+        const breedId = data[0].breeds[0].id
+        data.map(el => breedPhotosArr.push(el.url))
+        Notiflix.Notify.success(`There are ${breedPhotosArr.length} photos`) 
+        // console.log(img,temperament,origin,weight,life,breedName,breedId)
+        mainBreedData.innerHTML = ''
+        const fullInfo = createBreedFullInfoMarkup(img,breedId,breedName,temperament,origin,weight,life)     
+        mainBreedData.insertAdjacentHTML('afterbegin', fullInfo)
+
+        const nextFullBtn = document.querySelector('#next_full')
+        const prevFullBtn = document.querySelector('#prev_full')
+        const imgToChange = document.querySelector('.breeds_full-info-img')
+        
+        nextFullBtn.addEventListener('click', showNextPhoto)
+        prevFullBtn.addEventListener('click', showPrevPhoto)
+
+        function showPrevPhoto(e) {
+            if(photoIndex > 0){
+                photoIndex -= 1
+            } else if(photoIndex === 0){
+                Notiflix.Notify.warning(`Press Arrow right`) 
+        }
+        imgToChange.src = breedPhotosArr[photoIndex]
+        console.log(photoIndex)
     }
-      
-    )
-    console.log(e.target.id)
+        function showNextPhoto(e) {
+            if(photoIndex < breedPhotosArr.length - 1){
+                photoIndex += 1
+            } else if(photoIndex === breedPhotosArr.length - 1) {
+                Notiflix.Notify.warning(`Press Arrow left`) 
+            } 
+            imgToChange.src = breedPhotosArr[photoIndex]
+            console.log(photoIndex)
+        }
+
+        function changePhotoByKey(e) {
+            if(e.key === 'ArrowRight' && photoIndex < breedPhotosArr.length - 1){
+                photoIndex += 1
+            } else if(e.key === 'ArrowLeft' && photoIndex > 0){
+                photoIndex -= 1
+            } else if(photoIndex === 0){
+                Notiflix.Notify.info(`Press Arrow right`) 
+            } else if(photoIndex === breedPhotosArr.length - 1) {
+                Notiflix.Notify.info(`Press Arrow left`) 
+            }
+            imgToChange.src = breedPhotosArr[photoIndex]
+             
+        }
+    })
+}
+
+function showFullInfoByOptionSelect(e) {
+    photoIndex = 0
+     
+    const mainBreedData = document.querySelector('.main-container_breeds-data')
+    
+    catApiService.id = e.target.value
+        catApiService.limit = 100
+    catApiService.pagination().then(data => {
+        // console.log(data)
+        window.addEventListener('keydown', changePhotoByKey);
+        const img = data[0].url
+        const temperament = data[0].breeds[0].temperament;
+        const origin = data[0].breeds[0].origin
+        const weight =   data[0].breeds[0].weight.metric  
+        const life =  data[0].breeds[0].life_span 
+        const breedName = data[0].breeds[0].name
+        const breedId = data[0].breeds[0].id
+        data.map(el => breedPhotosArr.push(el.url))
+        Notiflix.Notify.success(`There are ${breedPhotosArr.length} photos`) 
+        // console.log(img,temperament,origin,weight,life,breedName,breedId)
+        mainBreedData.innerHTML = ''
+        const fullInfo = createBreedFullInfoMarkup(img,breedId,breedName,temperament,origin,weight,life)     
+        mainBreedData.insertAdjacentHTML('afterbegin', fullInfo)
+
+        const nextFullBtn = document.querySelector('#next_full')
+        const prevFullBtn = document.querySelector('#prev_full')
+        const imgToChange = document.querySelector('.breeds_full-info-img')
+        
+        nextFullBtn.addEventListener('click', showNextPhoto)
+        prevFullBtn.addEventListener('click', showPrevPhoto)
+
+        function showPrevPhoto(e) {
+            if(photoIndex > 0){
+                photoIndex -= 1
+            } else if(photoIndex === 0){
+                Notiflix.Notify.warning(`Press Arrow right`) 
+        }
+        imgToChange.src = breedPhotosArr[photoIndex]
+        console.log(photoIndex)
+    }
+        function showNextPhoto(e) {
+            if(photoIndex < breedPhotosArr.length - 1){
+                photoIndex += 1
+            } else if(photoIndex === breedPhotosArr.length - 1) {
+                Notiflix.Notify.warning(`Press Arrow left`) 
+            } 
+            imgToChange.src = breedPhotosArr[photoIndex]
+            console.log(photoIndex)
+        }
+    })
 }
  
 function openVotingPgae(e) {
     e.preventDefault()
+    photoIndex = 0
     breedPhotosArr = []
     catApiService.fetchRandomCat().then(data => {
             const imgUrl = data[0].url
@@ -82,6 +185,7 @@ function openVotingPgae(e) {
 
 function openBreedsPage(e) {
     e.preventDefault()
+    photoIndex = 0
     breedPhotosArr = []
     refs.main.classList.remove('first')
     refs.main.classList.remove('voting')
@@ -152,6 +256,7 @@ function openBreedsPage(e) {
     const breedNameOption = document.querySelector("#breeds_options")
     const mainBreedData = document.querySelector('.main-container_breeds-data')
     breedNameOption.addEventListener('change', function(e) {
+        
         catApiService.id = e.target.value
         catApiService.limit = 100
     catApiService.pagination().then(data => {
@@ -165,26 +270,50 @@ function openBreedsPage(e) {
         const breedName = data[0].breeds[0].name
         const breedId = data[0].breeds[0].id
         data.map(el => breedPhotosArr.push(el.url))
-        // console.log(breedPhotosArr)
+        Notiflix.Notify.info(`There are ${breedPhotosArr.length} photos`) 
         mainBreedData.innerHTML = ''
         const fullInfo = createBreedFullInfoMarkup(img,breedId,breedName,temperament,origin,weight,life)     
         mainBreedData.insertAdjacentHTML('afterbegin', fullInfo)
-
-
+      
         const imgToChange = document.querySelector('.breeds_full-info-img')
+        const nextFullBtn = document.querySelector('#next_full')
+        const prevFullBtn = document.querySelector('#prev_full')
+                
+        nextFullBtn.addEventListener('click', showNextPhoto)
+        prevFullBtn.addEventListener('click', showPrevPhoto)
+
+        function showPrevPhoto(e) {
+            if(photoIndex > 0){
+                photoIndex -= 1
+            } else if(photoIndex === 0){
+                Notiflix.Notify.warning(`Press Arrow right`) 
+        }
+        imgToChange.src = breedPhotosArr[photoIndex]
+        console.log(photoIndex)
+    }
+        function showNextPhoto(e) {
+            if(photoIndex < breedPhotosArr.length - 1){
+                photoIndex += 1
+            } else if(photoIndex === breedPhotosArr.length - 1) {
+                Notiflix.Notify.warning(`Press Arrow left`) 
+            } 
+            imgToChange.src = breedPhotosArr[photoIndex]
+            console.log(photoIndex)
+        }
         // console.log(imgToChange)
         function changePhotoByKey(e) {
             if(e.key === 'ArrowRight' && photoIndex < breedPhotosArr.length - 1){
                 photoIndex += 1
+                
             } else if(e.key === 'ArrowLeft' && photoIndex > 0){
                 photoIndex -= 1
+                
             } else {
                  
-                Notiflix.Notify.info('There are no more photos') 
+                 
             }
             imgToChange.src = breedPhotosArr[photoIndex]
-            console.log(photoIndex)
-            console.log(breedPhotosArr[photoIndex])
+            console.log(photoIndex) 
         }
     })
 
@@ -269,12 +398,9 @@ function openBreedsPage(e) {
         }
     }
         
-  
-
-
-
 function openGallaryPage(e){
     breedPhotosArr = []
+    photoIndex = 0
     refs.main.classList.remove('first')
     refs.main.classList.remove('voting')
     refs.main.classList.remove('breeds')
