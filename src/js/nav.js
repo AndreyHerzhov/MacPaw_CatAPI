@@ -19,6 +19,7 @@ let start = 0;
 let end = 10;
 const numberOfBreeds = 67
 let photoIndex = 0
+let currentLimit = 10
 
  
 
@@ -34,9 +35,6 @@ window.onload = function() {
     
   };
 
-
-
-
   function showFullInfoByBreedId(e) {
     photoIndex = 0
     if(e.target.nodeName !== 'IMG'){
@@ -49,6 +47,7 @@ window.onload = function() {
     catApiService.pagination().then(data => {
         // console.log(data)
         window.addEventListener('keydown', changePhotoByKey);
+         
         const img = data[0].url
         const temperament = data[0].breeds[0].temperament;
         const origin = data[0].breeds[0].origin
@@ -95,64 +94,12 @@ window.onload = function() {
             } else if(e.key === 'ArrowLeft' && photoIndex > 0){
                 photoIndex -= 1
             } else if(photoIndex === 0){
-                Notiflix.Notify.info(`Press Arrow right`) 
+                Notiflix.Notify.warning(`Press Arrow right`) 
             } else if(photoIndex === breedPhotosArr.length - 1) {
-                Notiflix.Notify.info(`Press Arrow left`) 
+                Notiflix.Notify.warning(`Press Arrow left`) 
             }
             imgToChange.src = breedPhotosArr[photoIndex]
              
-        }
-    })
-}
-
-function showFullInfoByOptionSelect(e) {
-    photoIndex = 0
-     
-    const mainBreedData = document.querySelector('.main-container_breeds-data')
-    
-    catApiService.id = e.target.value
-        catApiService.limit = 100
-    catApiService.pagination().then(data => {
-        // console.log(data)
-        window.addEventListener('keydown', changePhotoByKey);
-        const img = data[0].url
-        const temperament = data[0].breeds[0].temperament;
-        const origin = data[0].breeds[0].origin
-        const weight =   data[0].breeds[0].weight.metric  
-        const life =  data[0].breeds[0].life_span 
-        const breedName = data[0].breeds[0].name
-        const breedId = data[0].breeds[0].id
-        data.map(el => breedPhotosArr.push(el.url))
-        Notiflix.Notify.success(`There are ${breedPhotosArr.length} photos`) 
-        // console.log(img,temperament,origin,weight,life,breedName,breedId)
-        mainBreedData.innerHTML = ''
-        const fullInfo = createBreedFullInfoMarkup(img,breedId,breedName,temperament,origin,weight,life)     
-        mainBreedData.insertAdjacentHTML('afterbegin', fullInfo)
-
-        const nextFullBtn = document.querySelector('#next_full')
-        const prevFullBtn = document.querySelector('#prev_full')
-        const imgToChange = document.querySelector('.breeds_full-info-img')
-        
-        nextFullBtn.addEventListener('click', showNextPhoto)
-        prevFullBtn.addEventListener('click', showPrevPhoto)
-
-        function showPrevPhoto(e) {
-            if(photoIndex > 0){
-                photoIndex -= 1
-            } else if(photoIndex === 0){
-                Notiflix.Notify.warning(`Press Arrow right`) 
-        }
-        imgToChange.src = breedPhotosArr[photoIndex]
-        console.log(photoIndex)
-    }
-        function showNextPhoto(e) {
-            if(photoIndex < breedPhotosArr.length - 1){
-                photoIndex += 1
-            } else if(photoIndex === breedPhotosArr.length - 1) {
-                Notiflix.Notify.warning(`Press Arrow left`) 
-            } 
-            imgToChange.src = breedPhotosArr[photoIndex]
-            console.log(photoIndex)
         }
     })
 }
@@ -255,6 +202,12 @@ function openBreedsPage(e) {
     const limitOption = document.querySelector("#limit")
     const breedNameOption = document.querySelector("#breeds_options")
     const mainBreedData = document.querySelector('.main-container_breeds-data')
+    limitOption.addEventListener('change', function(e) {
+        currentLimit = e.target.value
+        catApiService.limit = currentLimit
+        console.log(catApiService.limit)
+    })
+    
     breedNameOption.addEventListener('change', function(e) {
         
         catApiService.id = e.target.value
@@ -319,7 +272,7 @@ function openBreedsPage(e) {
 
 
 })
-    limitOption.addEventListener('change', function(e) {console.log(e.target.value)})
+
     prevBtn.addEventListener('click', showPrevTen)
     nextBtn.addEventListener('click', showNextTen)
 

@@ -112,9 +112,13 @@
     grid-template-columns:  [col1-start] 200px   [col2-start] 200px  
                             [col3-start] 200px   [col3-end];
     grid-template-rows:     [row1-start] 150px 
-                            [row2-start] 140px [row3-start] 140px 
-                            [row4-start] 140px [row5-start]140px 
-                            [row6-start] 140px [row6-end];
+                            [row2-start] 140px  [row3-start] 140px 
+                            [row4-start] 140px  [row5-start]140px 
+                            [row6-start] 140px  [row7-start] 140px 
+                            [row8-start] 140px  [row9-start] 140px 
+                            [row10-start] 140px [row11-start]140px
+                            [row12-start] 140px [row13-start] 140px 
+                            [row14-start] 140px [row15-end];
     background-color: #fff;
     color: #444;
     overflow-y: auto;
@@ -206,6 +210,31 @@
   grid-row: row8-start / row10-start;
 }
 
+.cat-breeds_image15 {
+  grid-column: col1-start;
+  grid-row: row10-start / row11-start;
+}
+
+.cat-breeds_image16 {
+  grid-column: col2-start ;
+  grid-row: row10-start ;
+}
+
+.cat-breeds_image17 {
+  grid-column: col3-start;
+  grid-row: row10-start ;
+}
+
+.cat-breeds_image18 {
+  grid-column: col1-start;
+  grid-row: row11-start / row11-start ;
+}
+
+.cat-breeds_image19 {
+   grid-column: col2-start / col3-end ;
+  grid-row: row12-start ;
+}
+
 
   .image0{
     object-fit: cover;
@@ -278,6 +307,31 @@
   width: 200px;
 }
 .image14{
+  object-fit: cover;
+  width: 420px;
+  height: 300px;
+}
+.image15{
+  object-fit: cover;
+  width: 200px;
+  height: 300px; 
+}
+.image16{
+  object-fit: cover;
+  height: 150px;
+  width: 200px;
+}
+.image17{
+  object-fit: cover;
+  height: 150px;
+  width: 200px;
+}
+.image18{
+  object-fit: cover;
+  height: 150px;
+  width: 200px;
+}
+.image19{
   object-fit: cover;
   width: 420px;
   height: 300px;
