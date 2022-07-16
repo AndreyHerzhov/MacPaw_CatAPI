@@ -91,8 +91,8 @@ export function createVotingMarkup(img) {
                                 <img class="random-cat"
                                         src="${img}" 
                                         alt="picture" 
-                                        width="640px" 
-                                        height="360px" 
+                                        width="" 
+                                        height="" 
                                         srcset="">
 
 
@@ -234,8 +234,8 @@ export function createBreedsMarkup() {
                                 
                             </div>        
                             <div class="pagination-button_wrapper">
-                                <button type="button-bottom" id="prev_btn">PREV</button>
-                                <button type="button-bottom" id="next_btn">NEXT</button>
+                                <button type="button-bottom" class="pagination-btn" id="prev_btn">PREV</button>
+                                <button type="button-bottom" class="pagination-btn" id="next_btn">NEXT</button>
                             </div>
                             
                         

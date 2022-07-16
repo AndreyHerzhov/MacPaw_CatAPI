@@ -105,11 +105,14 @@
 
 
 .voting-image_card{
+    display: flex;
+     
+    justify-content: center;
     position: relative;
     margin-top: 20px;
     width: 640px;
     height: 360px;
-    background-color: aqua;
+    background-color: #f8f8f7;
     border-radius: 20px;
 }
 
@@ -187,10 +190,11 @@
 }
 
 .random-cat{
-    object-fit: cover;
-    width: 640px;
-    height: 100%;
+    object-fit: contain;
     border-radius: 20px;
+    max-width: 100%;
+    height: auto;
+    display: block;
 }
 
 .voting-data_list-wrapper{

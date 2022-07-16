@@ -221,7 +221,7 @@ function openBreedsPage(e) {
                     class="img image${index}"
                     width ="200px"
                     />       
-                    
+                    <div class="breed-name">${el.name}</div>
             </div>
         `  
            
@@ -258,7 +258,7 @@ function openBreedsPage(e) {
                     class="img image${index}"
                     width ="200px"
                     />       
-                    
+                    <div class="breed-name">${el.name}</div>
             </div>
         `  
            
