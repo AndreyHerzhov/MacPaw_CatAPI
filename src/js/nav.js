@@ -25,10 +25,12 @@ let dataToAdd =[]
 const objLikes = {
     src: '',
     id: 0,
+    time: 0
 }
 const objFav = {
     src: '',
     id: 0,
+    time: 0
 }
 
  
@@ -51,6 +53,15 @@ window.onload = function() {
       localStorage.setItem(key, catObj);
     } catch (error) {
       console.error("Set state error: ", error.message);
+    }
+  };
+
+  const readInfoFromLocalStorage = key => {
+    try {
+      const serializedState = localStorage.getItem(key);
+      return serializedState === null ? undefined : JSON.parse(serializedState);
+    } catch (error) {
+      console.error("Get state error: ", error.message);
     }
   };
 
@@ -169,7 +180,8 @@ function openVotingPgae(e) {
     })
   function addToLikes(e) {
     dataToAdd = []  
-    const savedLikes = JSON.parse(localStorage.getItem("likes"))
+    // JSON.parse(localStorage.getItem("likes"))
+    const savedLikes = readInfoFromLocalStorage("likes")
     if(!savedLikes) {
         objLikes.src = e.currentTarget.dataset.src
         objLikes.id = e.currentTarget.id
@@ -190,17 +202,22 @@ function openVotingPgae(e) {
   }
   function addToFavourites(e) {
     dataToAdd = []
+    let timestamp = new Date().getHours();
+    // JSON.parse(localStorage.getItem("favourites"))
     console.log(e.currentTarget.dataset.src)
-    const savedFavourites = JSON.parse(localStorage.getItem("favourites"))
+    const savedFavourites =  readInfoFromLocalStorage("favourites")
+    
     if(!savedFavourites) {
         objFav.src = e.currentTarget.dataset.src
         objFav.id = e.currentTarget.id
-        dataToAdd.push(objLikes)
+        objFav.time = timestamp
+        dataToAdd.push(objFav)
         saveInfoInLocalStorage("favourites", dataToAdd)  
     } else {
         objFav.src = e.currentTarget.dataset.src
         objFav.id = e.currentTarget.id
-        savedFavourites.push(objLikes)
+        objFav.time = timestamp
+        savedFavourites.push(objFav)
         saveInfoInLocalStorage("favourites", savedFavourites)  
         
     }
