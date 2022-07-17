@@ -21,6 +21,16 @@ const numberOfBreeds = 67
 let photoIndex = 0
 let currentLimit = 10
 const savedCatsArr = []
+let dataToAdd =[]
+const objLikes = {
+    src: '',
+    id: 0,
+}
+const objFav = {
+    src: '',
+    id: 0,
+}
+
  
 
 window.onload = function() {
@@ -35,10 +45,10 @@ window.onload = function() {
     
   };
 
-  const save = (key, value) => {
+  const saveInfoInLocalStorage = (key, value) => {
     try {
-      const catArr = JSON.stringify(value);
-      localStorage.setItem(key, catArr);
+      const catObj = JSON.stringify(value);
+      localStorage.setItem(key, catObj);
     } catch (error) {
       console.error("Set state error: ", error.message);
     }
@@ -68,9 +78,9 @@ window.onload = function() {
 
         savedCatsArr.push(data[0].breeds)
         
-        save("arrOfCatsInfo", savedCatsArr)  
-        const savedInfo = JSON.parse(localStorage.getItem("arrOfCatsInfo"))
-        console.log(savedInfo)
+        saveInfoInLocalStorage("arrOfCatsInfo", savedCatsArr)  
+        // const savedInfo = JSON.parse(localStorage.getItem("arrOfCatsInfo"))
+        // console.log(savedInfo)
         
         
 
@@ -134,6 +144,7 @@ function openVotingPgae(e) {
     breedPhotosArr = []
     catApiService.fetchRandomCat().then(data => {
             const imgUrl = data[0].url
+            const imgId = data[0].id
             refs.main.classList.remove('breeds')
             refs.btnBreeds.classList.remove('active-btn')
             refs.btnGallery.classList.remove('active-btn')
@@ -145,12 +156,63 @@ function openVotingPgae(e) {
                 return createMainMarkup()
             }  
             refs.backgroundMain.innerHTML = ''
-            createVotingMarkup(imgUrl)
-            console.log(imgUrl)
-            console.log(data)
+            createVotingMarkup(imgUrl,imgId)
+            // console.log(imgUrl)
+            // const likesButtons = document.querySelector('.voting-image_button-wrapper')
+            const likes = document.querySelector('.voting-image_button-smile')
+            const favourites = document.querySelector('.voting-image_button-heart')
+            const dislikes = document.querySelector('.voting-image_button-sad ')
+            likes.addEventListener('click', addToLikes)
+            favourites.addEventListener('click', addToFavourites)
+            dislikes.addEventListener('click', addToDislikes)
+            // likesButtons.addEventListener('click', addToLocalStorage)
     })
+  function addToLikes(e) {
+    dataToAdd = []  
+    const savedLikes = JSON.parse(localStorage.getItem("likes"))
+    if(!savedLikes) {
+        objLikes.src = e.currentTarget.dataset.src
+        objLikes.id = e.currentTarget.id
+        dataToAdd.push(objLikes)
+        saveInfoInLocalStorage("likes", dataToAdd)  
+    } else {
+        objLikes.src = e.currentTarget.dataset.src
+        objLikes.id = e.currentTarget.id
+        savedLikes.push(objLikes)
+        saveInfoInLocalStorage("likes", savedLikes)  
+    }
+     
+    // console.log(objLikes)
+    console.log(savedLikes)
    
    
+       
+  }
+  function addToFavourites(e) {
+    dataToAdd = []
+    console.log(e.currentTarget.dataset.src)
+    const savedFavourites = JSON.parse(localStorage.getItem("favourites"))
+    if(!savedFavourites) {
+        objFav.src = e.currentTarget.dataset.src
+        objFav.id = e.currentTarget.id
+        dataToAdd.push(objLikes)
+        saveInfoInLocalStorage("favourites", dataToAdd)  
+    } else {
+        objFav.src = e.currentTarget.dataset.src
+        objFav.id = e.currentTarget.id
+        savedFavourites.push(objLikes)
+        saveInfoInLocalStorage("favourites", savedFavourites)  
+        
+    }
+    console.log(savedFavourites)
+    // console.log(objLikes)
+    
+     
+  }
+  function addToDislikes(e) {
+    console.log(e.currentTarget.dataset.src)
+     
+  }
   
 }
 
