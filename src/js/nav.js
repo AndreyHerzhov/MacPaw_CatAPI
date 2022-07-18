@@ -25,12 +25,23 @@ let dataToAdd =[]
 const objLikes = {
     src: '',
     id: 0,
-    time: 0
+    hours: 0,
+    minutes: 0,
+    date: 0
 }
 const objFav = {
     src: '',
     id: 0,
-    time: 0
+    hours: 0,
+    minutes: 0,
+    date: 0
+}
+const objDisLikes = {
+    src: '',
+    id: 0,
+    hours: 0,
+    minutes: 0,
+    date: 0
 }
 
  
@@ -168,41 +179,63 @@ function openVotingPgae(e) {
             }  
             refs.backgroundMain.innerHTML = ''
             createVotingMarkup(imgUrl,imgId)
-            // console.log(imgUrl)
-            // const likesButtons = document.querySelector('.voting-image_button-wrapper')
+                        
+            const actionLog = document.querySelector('.main-container_voting-data_list')
             const likes = document.querySelector('.voting-image_button-smile')
             const favourites = document.querySelector('.voting-image_button-heart')
             const dislikes = document.querySelector('.voting-image_button-sad ')
+            
+            actionLog.innerHTML = ''
             likes.addEventListener('click', addToLikes)
             favourites.addEventListener('click', addToFavourites)
             dislikes.addEventListener('click', addToDislikes)
-            // likesButtons.addEventListener('click', addToLocalStorage)
+             
     })
   function addToLikes(e) {
     dataToAdd = []  
+    let dateOfAdd = new Date().getTime()
+    let timeHours = new Date().getHours();
+    let timeMinutes = new Date().getMinutes()
     // JSON.parse(localStorage.getItem("likes"))
     const savedLikes = readInfoFromLocalStorage("likes")
     if(!savedLikes) {
         objLikes.src = e.currentTarget.dataset.src
         objLikes.id = e.currentTarget.id
+        objLikes.hours = timeHours
+        objLikes.minutes = timeMinutes
+        objLikes.date = dateOfAdd
         dataToAdd.push(objLikes)
         saveInfoInLocalStorage("likes", dataToAdd)  
     } else {
         objLikes.src = e.currentTarget.dataset.src
         objLikes.id = e.currentTarget.id
+        objLikes.hours = timeHours
+        objLikes.minutes = timeMinutes
+        objLikes.date = dateOfAdd
         savedLikes.push(objLikes)
         saveInfoInLocalStorage("likes", savedLikes)  
     }
      
-    // console.log(objLikes)
+    Notiflix.Notify.success('Adde to likes');
+    const actioLogInfoMarkup = `
+                                <li class="main-container_voting-data_list-item">
+                                        <div>${timeHours}:${timeMinutes}</div>
+                                        <p>${e.currentTarget.id}</p>
+                                        <button type="button">Button</button>
+                                </li>
+    `
     console.log(savedLikes)
+    console.log(actioLogInfoMarkup)
+    actionLog.insertAdjacentHTML('afterbegin', actioLogInfoMarkup)
    
    
        
   }
   function addToFavourites(e) {
     dataToAdd = []
-    let timestamp = new Date().getHours();
+    let dateOfAdd = new Date().getTime()
+    let timeHours = new Date().getHours();
+    let timeMinutes = new Date().getMinutes()
     // JSON.parse(localStorage.getItem("favourites"))
     console.log(e.currentTarget.dataset.src)
     const savedFavourites =  readInfoFromLocalStorage("favourites")
@@ -210,24 +243,55 @@ function openVotingPgae(e) {
     if(!savedFavourites) {
         objFav.src = e.currentTarget.dataset.src
         objFav.id = e.currentTarget.id
-        objFav.time = timestamp
+        objFav.hours = timeHours
+        objFav.minutes = timeMinutes
+        objFav.date = dateOfAdd
         dataToAdd.push(objFav)
         saveInfoInLocalStorage("favourites", dataToAdd)  
     } else {
         objFav.src = e.currentTarget.dataset.src
         objFav.id = e.currentTarget.id
-        objFav.time = timestamp
+        objFav.hours = timeHours
+        objFav.minutes = timeMinutes
+        objFav.date = dateOfAdd
         savedFavourites.push(objFav)
         saveInfoInLocalStorage("favourites", savedFavourites)  
         
     }
+    Notiflix.Notify.success('Adde to favourites');
     console.log(savedFavourites)
     // console.log(objLikes)
     
      
   }
   function addToDislikes(e) {
-    console.log(e.currentTarget.dataset.src)
+    dataToAdd = []
+    let dateOfAdd = new Date().getTime()
+    let timeHours = new Date().getHours();
+    let timeMinutes = new Date().getMinutes()
+  
+    const savedDislikes =  readInfoFromLocalStorage("dislike")
+    
+    if(!savedDislikes) {
+        objDisLikes.src = e.currentTarget.dataset.src
+        objDisLikes.id = e.currentTarget.id
+        objDisLikes.hours = timeHours
+        objDisLikes.minutes = timeMinutes
+        objDisLikes.date = dateOfAdd
+        dataToAdd.push(objFav)
+        saveInfoInLocalStorage("dislike", dataToAdd)  
+    } else {
+        objDisLikes.src = e.currentTarget.dataset.src
+        objDisLikes.id = e.currentTarget.id
+        objDisLikes.hours = timeHours
+        objDisLikes.minutes = timeMinutes
+        objDisLikes.date = dateOfAdd
+        savedDislikes.push(objFav)
+        saveInfoInLocalStorage("dislike", savedDislikes)  
+        
+    }
+    Notiflix.Notify.success('Adde to dislikes');
+    console.log(savedDislikes)
      
   }
   
