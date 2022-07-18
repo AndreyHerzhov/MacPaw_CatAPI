@@ -118,26 +118,7 @@ export function createVotingMarkup(img,id) {
                             </div>
                             <div class="voting-data_list-wrapper">
                                 <ul class="main-container_voting-data_list">
-                                    <li class="main-container_voting-data_list-item">
-                                        <div>22:40</div>
-                                        <p>Lorem ipsum</p>
-                                        <button type="button">Button</button>
-                                    </li>
-                                    <li class="main-container_voting-data_list-item">
-                                        <div>22:40</div>
-                                        <p>Lorem ipsum</p>
-                                        <button type="button">Button</button>
-                                    </li>
-                                    <li class="main-container_voting-data_list-item">
-                                        <div>22:40</div>
-                                        <p>Lorem ipsum</p>
-                                        <button type="button">Button</button>
-                                    </li>
-                                    <li class="main-container_voting-data_list-item">
-                                        <div>22:40</div>
-                                        <p>Lorem ipsum</p>
-                                        <button type="button">Button</button>
-                                    </li>
+                                    
                                 </ul>
                             </div>
 
@@ -530,3 +511,6 @@ export function createBreedFullInfoMarkup(url,id,name,temperament,origin,weight,
              
 `      
 }
+
+
+

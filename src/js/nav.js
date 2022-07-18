@@ -2,6 +2,9 @@ import { refs } from './refs'
 import { createVotingMarkup, createBreedsMarkup, createMainMarkup,createGalaryMarkup, createBreedsGaleryMarkup, createBreedFullInfoMarkup } from './render_markup'
 import CatApiService from "./catApiService";
 import Notiflix from 'notiflix';
+import fav_user_log from 'bundle-text:../images/svg/fav_user_log.svg'
+import like_user_log from 'bundle-text:../images/svg/like_user_log.svg'
+import dislike_user_log from 'bundle-text:../images/svg/dislike_user_log.svg'
  
 
 refs.btnVoting.addEventListener('click', openVotingPgae)
@@ -43,6 +46,7 @@ const objDisLikes = {
     minutes: 0,
     date: 0
 }
+const userActionLog = []
 
  
 
@@ -88,7 +92,7 @@ window.onload = function() {
 
     catApiService.pagination().then(data => {
       
-        window.addEventListener('keydown', changePhotoByKey);
+        // window.addEventListener('keydown', changePhotoByKey);
          
         const img = data[0].url
         const temperament = data[0].breeds[0].temperament;
@@ -101,23 +105,13 @@ window.onload = function() {
         savedCatsArr.push(data[0].breeds)
         
         saveInfoInLocalStorage("arrOfCatsInfo", savedCatsArr)  
-        // const savedInfo = JSON.parse(localStorage.getItem("arrOfCatsInfo"))
-        // console.log(savedInfo)
-        
-        
-
-
-
-        
-
-
+           
+     
         data.map(el => breedPhotosArr.push(el.url))
         Notiflix.Notify.success(`There are ${breedPhotosArr.length} photos`) 
-        // console.log(img,temperament,origin,weight,life,breedName,breedId)
         mainBreedData.innerHTML = ''
         const fullInfo = createBreedFullInfoMarkup(img,breedId,breedName,temperament,origin,weight,life)     
         mainBreedData.insertAdjacentHTML('afterbegin', fullInfo)
- 
         const nextFullBtn = document.querySelector('#next_full')
         const prevFullBtn = document.querySelector('#prev_full')
         const imgToChange = document.querySelector('.breeds_full-info-img')
@@ -158,7 +152,7 @@ window.onload = function() {
              
         }
     })
-}
+    }
  
 function openVotingPgae(e) {
     e.preventDefault()
@@ -180,12 +174,23 @@ function openVotingPgae(e) {
             refs.backgroundMain.innerHTML = ''
             createVotingMarkup(imgUrl,imgId)
                         
-            const actionLog = document.querySelector('.main-container_voting-data_list')
+            
             const likes = document.querySelector('.voting-image_button-smile')
             const favourites = document.querySelector('.voting-image_button-heart')
             const dislikes = document.querySelector('.voting-image_button-sad ')
+            const actionLog = document.querySelector('.main-container_voting-data_list')
+            const userLogFromLocalStorage = readInfoFromLocalStorage("user-log")
+
+            if(userLogFromLocalStorage){
+                console.log(userLogFromLocalStorage)
+                userLogFromLocalStorage.map(el => 
+                    actionLog.insertAdjacentHTML('afterbegin', el))
+            } else {
+                console.log('empty')
+            }
             
-            actionLog.innerHTML = ''
+            
+            
             likes.addEventListener('click', addToLikes)
             favourites.addEventListener('click', addToFavourites)
             dislikes.addEventListener('click', addToDislikes)
@@ -196,8 +201,9 @@ function openVotingPgae(e) {
     let dateOfAdd = new Date().getTime()
     let timeHours = new Date().getHours();
     let timeMinutes = new Date().getMinutes()
-    // JSON.parse(localStorage.getItem("likes"))
     const savedLikes = readInfoFromLocalStorage("likes")
+    const userLogFromLocalStorage = readInfoFromLocalStorage("user-log")
+    
     if(!savedLikes) {
         objLikes.src = e.currentTarget.dataset.src
         objLikes.id = e.currentTarget.id
@@ -216,29 +222,38 @@ function openVotingPgae(e) {
         saveInfoInLocalStorage("likes", savedLikes)  
     }
      
-    Notiflix.Notify.success('Adde to likes');
+    Notiflix.Notify.success('Added to likes', {
+        position: 'center-top',
+    });
     const actioLogInfoMarkup = `
-                                <li class="main-container_voting-data_list-item">
-                                        <div>${timeHours}:${timeMinutes}</div>
-                                        <p>${e.currentTarget.id}</p>
-                                        <button type="button">Button</button>
-                                </li>
+                    <li class="main-container_voting-data_list-item">
+                            <div class="user-log_wrapper">
+                                <button class="user-log_time" >${timeHours}:${timeMinutes}</button>
+                                <p class="user-info_id" >Image ID: ${e.currentTarget.id}was added to Likes</p>
+                            </div>
+                            <button class="user-log_button" type="button">${like_user_log}</button>
+                    </li>
     `
-    console.log(savedLikes)
-    console.log(actioLogInfoMarkup)
+    if(!userLogFromLocalStorage){
+        userActionLog.push(actioLogInfoMarkup)
+        saveInfoInLocalStorage("user-log", userActionLog)
+    } else {
+        userLogFromLocalStorage.push(actioLogInfoMarkup)
+        saveInfoInLocalStorage("user-log", userLogFromLocalStorage)
+    }
+    const actionLog = document.querySelector('.main-container_voting-data_list')
     actionLog.insertAdjacentHTML('afterbegin', actioLogInfoMarkup)
-   
-   
+      
        
   }
+
   function addToFavourites(e) {
     dataToAdd = []
     let dateOfAdd = new Date().getTime()
     let timeHours = new Date().getHours();
     let timeMinutes = new Date().getMinutes()
-    // JSON.parse(localStorage.getItem("favourites"))
-    console.log(e.currentTarget.dataset.src)
     const savedFavourites =  readInfoFromLocalStorage("favourites")
+    const userLogFromLocalStorage = readInfoFromLocalStorage("user-log")
     
     if(!savedFavourites) {
         objFav.src = e.currentTarget.dataset.src
@@ -258,20 +273,39 @@ function openVotingPgae(e) {
         saveInfoInLocalStorage("favourites", savedFavourites)  
         
     }
-    Notiflix.Notify.success('Adde to favourites');
-    console.log(savedFavourites)
-    // console.log(objLikes)
-    
-     
+    Notiflix.Notify.success('Added to favourites',{
+        position: 'center-top',
+    });
+    const actioLogInfoMarkup = `
+                <li class="main-container_voting-data_list-item">
+                        <div class="user-log_wrapper">
+                            <button class="user-log_time" >${timeHours}:${timeMinutes}</button>
+                            <p class="user-info_id" >Image ID: ${e.currentTarget.id}was added to favourites</p>
+                        </div>
+                        
+                        <button class="user-log_button" type="button">${fav_user_log}</button>
+                </li> 
+    `
+    if(!userLogFromLocalStorage){
+    userActionLog.push(actioLogInfoMarkup)
+    saveInfoInLocalStorage("user-log", userActionLog)
+    } else {
+    userLogFromLocalStorage.push(actioLogInfoMarkup)
+    saveInfoInLocalStorage("user-log", userLogFromLocalStorage)
+    }
+    const actionLog = document.querySelector('.main-container_voting-data_list')
+    actionLog.insertAdjacentHTML('afterbegin', actioLogInfoMarkup)
+        
   }
+
   function addToDislikes(e) {
     dataToAdd = []
     let dateOfAdd = new Date().getTime()
     let timeHours = new Date().getHours();
     let timeMinutes = new Date().getMinutes()
-  
     const savedDislikes =  readInfoFromLocalStorage("dislike")
-    
+    const userLogFromLocalStorage = readInfoFromLocalStorage("user-log")
+
     if(!savedDislikes) {
         objDisLikes.src = e.currentTarget.dataset.src
         objDisLikes.id = e.currentTarget.id
@@ -290,12 +324,33 @@ function openVotingPgae(e) {
         saveInfoInLocalStorage("dislike", savedDislikes)  
         
     }
-    Notiflix.Notify.success('Adde to dislikes');
-    console.log(savedDislikes)
+    Notiflix.Notify.success('Added to dislikes',{
+        position: 'center-top',
+    });
+    const actioLogInfoMarkup = `
+                    <li class="main-container_voting-data_list-item">
+                            <div class="user-log_wrapper">
+                                    <button class="user-log_time" >${timeHours}:${timeMinutes}</button>
+                                    <p class="user-info_id" >Image ID: ${e.currentTarget.id}was added to dislike</p>
+                            </div>
+                                                
+                            <button class="user-log_button" type="button">${dislike_user_log}</button>
+                    </li>
+    `
+    if(!userLogFromLocalStorage){
+        userActionLog.push(actioLogInfoMarkup)
+        saveInfoInLocalStorage("user-log", userActionLog)
+    } else {
+        userLogFromLocalStorage.push(actioLogInfoMarkup)
+        saveInfoInLocalStorage("user-log", userLogFromLocalStorage)
+    }
+    const actionLog = document.querySelector('.main-container_voting-data_list')
+    actionLog.insertAdjacentHTML('afterbegin', actioLogInfoMarkup)
+     
      
   }
   
-}
+    }
 
 function openBreedsPage(e) {
     e.preventDefault()
@@ -377,12 +432,12 @@ function openBreedsPage(e) {
     })
     
     breedNameOption.addEventListener('change', function(e) {
-        
+        console.log(e.target.value)
         catApiService.id = e.target.value
         catApiService.limit = 100
     catApiService.pagination().then(data => {
         console.log(data)
-        window.addEventListener('keydown', changePhotoByKey);
+    //     window.addEventListener('keydown', changePhotoByKey);
         const img = data[0].url
         const temperament = data[0].breeds[0].temperament;
         const origin = data[0].breeds[0].origin
@@ -581,7 +636,7 @@ function openGallaryPage(e){
                         
                     
                     }
-                } 
+    } 
                   
  
  

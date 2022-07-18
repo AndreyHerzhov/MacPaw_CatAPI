@@ -1,7 +1,4 @@
- 
- 
-
-.filter-button{
+ .filter-button{
     padding: 5px 8px;
 }
 
@@ -63,4 +60,30 @@
     color: #8C8C8C;
     border: none;
     border-radius: 10px;
+}
+
+.main-container_voting-data_list-item{
+    display: flex;
+    justify-content: space-between;
+}
+.user-log_wrapper{
+    display: flex;
+}
+
+.user-log_time{
+    width: 61px;
+    height: 30px;
+    background: #FFFFFF;
+    border: none;
+    border-radius: 5px; 
+    background-color: #FFFFFF;
+}
+
+.user-info_id{
+    margin-left: 20px;
+}
+
+.user-log_button{
+    border: none;
+    background-color: transparent;
 }
