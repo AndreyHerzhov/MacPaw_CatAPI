@@ -46,6 +46,16 @@ const objDisLikes = {
     minutes: 0,
     date: 0
 }
+
+const breedInfo = {
+    temperament: '',
+    origin: '', 
+    weight: 0,
+    life_span: 0
+}
+
+const breedInfoArr = []
+
 const userActionLog = []
 
  
@@ -53,9 +63,9 @@ const userActionLog = []
 window.onload = function() {
     
     // catApiService.fetchRandomCat().then(data => console.log(data))
-    // catApiService.fetchAllBreeds().then(data => console.log(data))
+    catApiService.fetchAllBreeds().then(data => console.log(data))
     // catApiService.pagination().then(data => console.log(data))
-    // catApiService.fetchAllFotos().then(data => console.log(data[0].url))
+    // catApiService.fetchAllFotos().then(data => console.log(data))
     // catApiService.fetchCatById().then(data => console.log(data))
     // catApiService.fetchBreedsImg().then(data => console.log(data)) 
 
@@ -85,40 +95,25 @@ window.onload = function() {
     if(e.target.nodeName !== 'IMG'){
         return
     }
+    console.log(e.target.id)
     const mainBreedData = document.querySelector('.main-container_breeds-data')
     catApiService.id = e.target.id
-     
-        catApiService.limit = 100
-
+    catApiService.limit = 100
     catApiService.pagination().then(data => {
-      
-        // window.addEventListener('keydown', changePhotoByKey);
-         
+        console.log(data)
         const img = data[0].url
-        const temperament = data[0].breeds[0].temperament;
-        const origin = data[0].breeds[0].origin
-        const weight =   data[0].breeds[0].weight.metric  
-        const life =  data[0].breeds[0].life_span 
-        const breedName = data[0].breeds[0].name
-        const breedId = data[0].breeds[0].id
-
-        savedCatsArr.push(data[0].breeds)
-        
-        saveInfoInLocalStorage("arrOfCatsInfo", savedCatsArr)  
-           
-     
         data.map(el => breedPhotosArr.push(el.url))
-        Notiflix.Notify.success(`There are ${breedPhotosArr.length} photos`) 
+        Notiflix.Notify.info(`There are ${breedPhotosArr.length} photos`)
         mainBreedData.innerHTML = ''
-        const fullInfo = createBreedFullInfoMarkup(img,breedId,breedName,temperament,origin,weight,life)     
+        const fullInfo = createBreedFullInfoMarkup(img) 
         mainBreedData.insertAdjacentHTML('afterbegin', fullInfo)
+
+        const imgToChange = document.querySelector('.breeds_full-info-img')
         const nextFullBtn = document.querySelector('#next_full')
         const prevFullBtn = document.querySelector('#prev_full')
-        const imgToChange = document.querySelector('.breeds_full-info-img')
-        
+
         nextFullBtn.addEventListener('click', showNextPhoto)
         prevFullBtn.addEventListener('click', showPrevPhoto)
-
         function showPrevPhoto(e) {
             if(photoIndex > 0){
                 photoIndex -= 1
@@ -137,21 +132,9 @@ window.onload = function() {
             imgToChange.src = breedPhotosArr[photoIndex]
             console.log(photoIndex)
         }
-
-        function changePhotoByKey(e) {
-            if(e.key === 'ArrowRight' && photoIndex < breedPhotosArr.length - 1){
-                photoIndex += 1
-            } else if(e.key === 'ArrowLeft' && photoIndex > 0){
-                photoIndex -= 1
-            } else if(photoIndex === 0){
-                Notiflix.Notify.warning(`Press Arrow right`) 
-            } else if(photoIndex === breedPhotosArr.length - 1) {
-                Notiflix.Notify.warning(`Press Arrow left`) 
-            }
-            imgToChange.src = breedPhotosArr[photoIndex]
-             
-        }
     })
+    
+
     }
  
 function openVotingPgae(e) {
@@ -312,7 +295,7 @@ function openVotingPgae(e) {
         objDisLikes.hours = timeHours
         objDisLikes.minutes = timeMinutes
         objDisLikes.date = dateOfAdd
-        dataToAdd.push(objFav)
+        dataToAdd.push(objDisLikes)
         saveInfoInLocalStorage("dislike", dataToAdd)  
     } else {
         objDisLikes.src = e.currentTarget.dataset.src
@@ -320,7 +303,7 @@ function openVotingPgae(e) {
         objDisLikes.hours = timeHours
         objDisLikes.minutes = timeMinutes
         objDisLikes.date = dateOfAdd
-        savedDislikes.push(objFav)
+        savedDislikes.push(objDisLikes)
         saveInfoInLocalStorage("dislike", savedDislikes)  
         
     }
@@ -377,14 +360,22 @@ function openBreedsPage(e) {
     catApiService.limit = 67
     catApiService.page = 0
     catApiService.fetchAllBreeds().then(data => {
+        const savedInfoInLocalStorage = readInfoFromLocalStorage('fullInfoAboutBreed')
+        if(!savedInfoInLocalStorage) {
+            breedInfoArr.push(...data)
+            saveInfoInLocalStorage('fullInfoAboutBreed', breedInfoArr)
+        } else {
+            return
+        }
         
+
         const resultWithImg = data.filter(el => el.image !== undefined) 
         const breedsOptions = resultWithImg.map(el => 
            ` 
            <option value="${el.id}">${el.name}</option>
            `
             )
-
+            
         breedsList.insertAdjacentHTML('beforeend', breedsOptions)  
 
     })
@@ -435,64 +426,41 @@ function openBreedsPage(e) {
         console.log(e.target.value)
         catApiService.id = e.target.value
         catApiService.limit = 100
-    catApiService.pagination().then(data => {
-        console.log(data)
-    //     window.addEventListener('keydown', changePhotoByKey);
-        const img = data[0].url
-        const temperament = data[0].breeds[0].temperament;
-        const origin = data[0].breeds[0].origin
-        const weight =   data[0].breeds[0].weight.metric  
-        const life =  data[0].breeds[0].life_span 
-        const breedName = data[0].breeds[0].name
-        const breedId = data[0].breeds[0].id
-        data.map(el => breedPhotosArr.push(el.url))
-        Notiflix.Notify.info(`There are ${breedPhotosArr.length} photos`) 
-        mainBreedData.innerHTML = ''
-        const fullInfo = createBreedFullInfoMarkup(img,breedId,breedName,temperament,origin,weight,life)     
-        mainBreedData.insertAdjacentHTML('afterbegin', fullInfo)
-      
-        const imgToChange = document.querySelector('.breeds_full-info-img')
-        const nextFullBtn = document.querySelector('#next_full')
-        const prevFullBtn = document.querySelector('#prev_full')
-                
-        nextFullBtn.addEventListener('click', showNextPhoto)
-        prevFullBtn.addEventListener('click', showPrevPhoto)
+        catApiService.pagination().then(data => {
+            console.log(data)
+            const img = data[0].url
+            data.map(el => breedPhotosArr.push(el.url))
+            Notiflix.Notify.info(`There are ${breedPhotosArr.length} photos`)
+            mainBreedData.innerHTML = ''
+            const fullInfo = createBreedFullInfoMarkup(img) 
+            mainBreedData.insertAdjacentHTML('afterbegin', fullInfo)
 
-        function showPrevPhoto(e) {
-            if(photoIndex > 0){
-                photoIndex -= 1
-            } else if(photoIndex === 0){
-                Notiflix.Notify.warning(`Press Arrow right`) 
-        }
-        imgToChange.src = breedPhotosArr[photoIndex]
-        console.log(photoIndex)
-    }
-        function showNextPhoto(e) {
-            if(photoIndex < breedPhotosArr.length - 1){
-                photoIndex += 1
-            } else if(photoIndex === breedPhotosArr.length - 1) {
-                Notiflix.Notify.warning(`Press Arrow left`) 
-            } 
+            const imgToChange = document.querySelector('.breeds_full-info-img')
+            const nextFullBtn = document.querySelector('#next_full')
+            const prevFullBtn = document.querySelector('#prev_full')
+
+            nextFullBtn.addEventListener('click', showNextPhoto)
+            prevFullBtn.addEventListener('click', showPrevPhoto)
+            function showPrevPhoto(e) {
+                if(photoIndex > 0){
+                    photoIndex -= 1
+                } else if(photoIndex === 0){
+                    Notiflix.Notify.warning(`Press Arrow right`) 
+            }
             imgToChange.src = breedPhotosArr[photoIndex]
             console.log(photoIndex)
         }
-        // console.log(imgToChange)
-        function changePhotoByKey(e) {
-            if(e.key === 'ArrowRight' && photoIndex < breedPhotosArr.length - 1){
-                photoIndex += 1
-                
-            } else if(e.key === 'ArrowLeft' && photoIndex > 0){
-                photoIndex -= 1
-                
-            } else {
-                 
-                 
+            function showNextPhoto(e) {
+                if(photoIndex < breedPhotosArr.length - 1){
+                    photoIndex += 1
+                } else if(photoIndex === breedPhotosArr.length - 1) {
+                    Notiflix.Notify.warning(`Press Arrow left`) 
+                } 
+                imgToChange.src = breedPhotosArr[photoIndex]
+                console.log(photoIndex)
             }
-            imgToChange.src = breedPhotosArr[photoIndex]
-            console.log(photoIndex) 
-        }
-    })
-
+        })
+        
 
 })
 

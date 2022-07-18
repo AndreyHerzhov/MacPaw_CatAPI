@@ -7,7 +7,7 @@ const API_KEY = '984907ed-4e7f-4546-9c87-f9d0754e6fea'
 
 export default class CatApiService {
     constructor(){
-        this.breedId = '';
+        this.breedId = 'abys';
         this.page = 0;
         this.limit = 10;
         this.type = 'jpg,png,gif'
@@ -24,7 +24,7 @@ export default class CatApiService {
             return data
         })
     }
-
+ 
     // Load linfo by breed_id. Several photos for one breed.(Breed ID, number of result, type of foto) Return full info.
     pagination() {
         const url = `${BASE_URL}images/search?limit=${this.limit}&page=${this.page}&breed_ids=${this.breedId}&order=${this.order}&mime_types=${this.type}`;
