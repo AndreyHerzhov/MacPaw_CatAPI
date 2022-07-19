@@ -5,6 +5,7 @@ import Notiflix from 'notiflix';
 import fav_user_log from 'bundle-text:../images/svg/fav_user_log.svg'
 import like_user_log from 'bundle-text:../images/svg/like_user_log.svg'
 import dislike_user_log from 'bundle-text:../images/svg/dislike_user_log.svg'
+import iconLeft from 'bundle-text:../images/svg/left.svg'
  
 
 refs.btnVoting.addEventListener('click', openVotingPgae)
@@ -61,9 +62,10 @@ const userActionLog = []
  
 
 window.onload = function() {
-    
+    catApiService.limit = 20
+    // console.log(catApiService.limit) 
     // catApiService.fetchRandomCat().then(data => console.log(data))
-    catApiService.fetchAllBreeds().then(data => console.log(data))
+    // catApiService.fetchAllBreeds().then(data => console.log(data))
     // catApiService.pagination().then(data => console.log(data))
     // catApiService.fetchAllFotos().then(data => console.log(data))
     // catApiService.fetchCatById().then(data => console.log(data))
@@ -71,6 +73,9 @@ window.onload = function() {
 
     
   };
+
+
+
 
   const saveInfoInLocalStorage = (key, value) => {
     try {
@@ -90,22 +95,51 @@ window.onload = function() {
     }
   };
 
+  function showFullInfoAboutCat(id) {
+    const savedFullInfo = readInfoFromLocalStorage('fullInfoAboutBreed')
+    const thisCatFullInfo = savedFullInfo.filter(el => el.id === `${id}`)
+    console.log(thisCatFullInfo)
+    
+    const temperament = thisCatFullInfo[0].temperament;
+    const origin = thisCatFullInfo[0].origin
+    const weight =   thisCatFullInfo[0].weight.metric  
+    const life =  thisCatFullInfo[0].life_span 
+    const breedName = thisCatFullInfo[0].name
+    const breedId = thisCatFullInfo[0].id
+    console.log(temperament,origin,weight,life,breedName,breedId)
+  }
+
   function showFullInfoByBreedId(e) {
     photoIndex = 0
     if(e.target.nodeName !== 'IMG'){
         return
     }
     console.log(e.target.id)
+  
+
     const mainBreedData = document.querySelector('.main-container_breeds-data')
-    catApiService.id = e.target.id
+    const clickedCatBreedId = e.target.id
+    catApiService.id = clickedCatBreedId
     catApiService.limit = 100
     catApiService.pagination().then(data => {
         console.log(data)
         const img = data[0].url
+        const savedFullInfo = readInfoFromLocalStorage('fullInfoAboutBreed')
+        const thisCatFullInfo = savedFullInfo.filter(el => el.id === clickedCatBreedId)
+        console.log(thisCatFullInfo)
+        const dexription = thisCatFullInfo[0].description
+        const temperament = thisCatFullInfo[0].temperament;
+        const origin = thisCatFullInfo[0].origin
+        const weight =   thisCatFullInfo[0].weight.metric  
+        const life =  thisCatFullInfo[0].life_span 
+        const breedName = thisCatFullInfo[0].name
+        const breedId = thisCatFullInfo[0].id
+        console.log(temperament,origin,weight,life,breedName,breedId) 
+
         data.map(el => breedPhotosArr.push(el.url))
         Notiflix.Notify.info(`There are ${breedPhotosArr.length} photos`)
         mainBreedData.innerHTML = ''
-        const fullInfo = createBreedFullInfoMarkup(img) 
+        const fullInfo = createBreedFullInfoMarkup(img,breedId,breedName,temperament,origin,weight,life) 
         mainBreedData.insertAdjacentHTML('afterbegin', fullInfo)
 
         const imgToChange = document.querySelector('.breeds_full-info-img')
@@ -157,15 +191,194 @@ function openVotingPgae(e) {
             refs.backgroundMain.innerHTML = ''
             createVotingMarkup(imgUrl,imgId)
                         
-            
+            const likesSaved = document.querySelector('#smile')
+            const dislikesSaved = document.querySelector('#sad')
+            const favSaved = document.querySelector('#heart')
             const likes = document.querySelector('.voting-image_button-smile')
             const favourites = document.querySelector('.voting-image_button-heart')
             const dislikes = document.querySelector('.voting-image_button-sad ')
             const actionLog = document.querySelector('.main-container_voting-data_list')
             const userLogFromLocalStorage = readInfoFromLocalStorage("user-log")
 
+            // console.log(favSaved,dislikesSaved,likesSaved)
+            likesSaved.addEventListener('click', showAllLikedPhotos)
+            favSaved.addEventListener('click', showAllFavdPhotos)
+            dislikesSaved.addEventListener('click', showAllDisLikedPhotos)
+
+            const mainContainer = document.querySelector('.main-container_voting-data')
+
+            function showAllLikedPhotos() {
+                
+                console.log('Click like')
+                mainContainer.innerHTML = ''
+
+                const likeMarkup = `
+                      
+                            
+                            <div class="breeds-button_wrapper">
+                                <button
+                                    class="breeds-button_back"
+                                    type="button"
+                                    data-back="back"
+                                    id="back">${iconLeft}
+                                </button>
+                                
+                                <button
+                                    class="breeds-button_right"
+                                    type="button"
+                                    data-breeds="breeds_main"
+                                    id="breeds_main">LIKES
+                                </button>
+              
+                            </div>
+                        <div class="breeds-gallery"></div>
+                `
+                mainContainer.insertAdjacentHTML('afterbegin',likeMarkup)
+                const breedsGallery = document.querySelector('.breeds-gallery')
+
+                const likedFotos = readInfoFromLocalStorage('likes')
+                if(likedFotos) {
+                    console.log(likedFotos)
+                    const  likesPhotoMarkup =  likedFotos.map((el,index) =>   
+            
+                    `
+                        <div class="box cat-breeds_image${index}">
+                                
+                                <img 
+                                src=${el.src} 
+                                alt="${el.id}" 
+                                id="${el.id}"  
+            
+                                loading="lazy" 
+                                class="img image${index}"
+                                width ="200px"
+                                />       
+                                
+                        </div>
+                    `  
+                    ).join('')
+    
+                    breedsGallery.insertAdjacentHTML('afterbegin',likesPhotoMarkup)
+                } else {
+                    return
+                }
+                
+            }
+
+            function showAllFavdPhotos() {
+                console.log('Click like')
+                mainContainer.innerHTML = ''
+
+                const favMarkup = `
+                      
+                            
+                            <div class="breeds-button_wrapper">
+                                <button
+                                    class="breeds-button_back"
+                                    type="button"
+                                    data-back="back"
+                                    id="back">${iconLeft}
+                                </button>
+                                
+                                <button
+                                    class="breeds-button_right"
+                                    type="button"
+                                    data-breeds="breeds_main"
+                                    id="breeds_main">FAVOURITES
+                                </button>
+              
+                            </div>
+                        <div class="breeds-gallery"></div>
+                `
+                mainContainer.insertAdjacentHTML('afterbegin',favMarkup)
+                const breedsGallery = document.querySelector('.breeds-gallery')
+
+                const favFotos = readInfoFromLocalStorage('favourites')
+                if(favFotos) {
+                    console.log(favFotos)
+                    const  favPhotoMarkup =  favFotos.map((el,index) =>   
+            
+                    `
+                        <div class="box cat-breeds_image${index}">
+                                
+                                <img 
+                                src=${el.src} 
+                                alt="${el.id}" 
+                                id="${el.id}"  
+            
+                                loading="lazy" 
+                                class="img image${index}"
+                                width ="200px"
+                                />       
+                                
+                        </div>
+                    `  
+                    ).join('')
+    
+                    breedsGallery.insertAdjacentHTML('afterbegin',favPhotoMarkup)
+                } else {
+                    return
+                }
+            }
+
+            function showAllDisLikedPhotos() {
+                console.log('Click like')
+                mainContainer.innerHTML = ''
+
+                const dislikeMarkup = `
+                      
+                            
+                            <div class="breeds-button_wrapper">
+                                <button
+                                    class="breeds-button_back"
+                                    type="button"
+                                    data-back="back"
+                                    id="back">${iconLeft}
+                                </button>
+                                
+                                <button
+                                    class="breeds-button_right"
+                                    type="button"
+                                    data-breeds="breeds_main"
+                                    id="breeds_main">DISLIKES
+                                </button>
+              
+                            </div>
+                        <div class="breeds-gallery"></div>
+                `
+                mainContainer.insertAdjacentHTML('afterbegin',dislikeMarkup)
+                const breedsGallery = document.querySelector('.breeds-gallery')
+
+                const disLikedFotos = readInfoFromLocalStorage('dislike')
+                if(disLikedFotos) {
+                    console.log(disLikedFotos)
+                    const  disLikesPhotoMarkup =  disLikedFotos.map((el,index) =>   
+            
+                    `
+                        <div class="box cat-breeds_image${index}">
+                                
+                                <img 
+                                src=${el.src} 
+                                alt="${el.id}" 
+                                id="${el.id}"  
+            
+                                loading="lazy" 
+                                class="img image${index}"
+                                width ="200px"
+                                />       
+                                
+                        </div>
+                    `  
+                    ).join('')
+    
+                    breedsGallery.insertAdjacentHTML('afterbegin',disLikesPhotoMarkup)
+                } else {
+                    return
+                }
+            }
+
             if(userLogFromLocalStorage){
-                console.log(userLogFromLocalStorage)
+                // console.log(userLogFromLocalStorage)
                 userLogFromLocalStorage.map(el => 
                     actionLog.insertAdjacentHTML('afterbegin', el))
             } else {
@@ -364,19 +577,28 @@ function openBreedsPage(e) {
         if(!savedInfoInLocalStorage) {
             breedInfoArr.push(...data)
             saveInfoInLocalStorage('fullInfoAboutBreed', breedInfoArr)
+            const resultWithImg = data.filter(el => el.image !== undefined) 
+            const breedsOptions = resultWithImg.map(el => 
+            ` 
+            <option value="${el.id}">${el.name}</option>
+            `
+                )
+            // console.log(breedsOptions)    
+            breedsList.insertAdjacentHTML('beforeend', breedsOptions)  
         } else {
+            const resultWithImg = data.filter(el => el.image !== undefined) 
+            const breedsOptions = resultWithImg.map(el => 
+            ` 
+            <option value="${el.id}">${el.name}</option>
+            `
+                )
+            // console.log(breedsOptions)    
+            breedsList.insertAdjacentHTML('beforeend', breedsOptions)  
             return
         }
         
 
-        const resultWithImg = data.filter(el => el.image !== undefined) 
-        const breedsOptions = resultWithImg.map(el => 
-           ` 
-           <option value="${el.id}">${el.name}</option>
-           `
-            )
-            
-        breedsList.insertAdjacentHTML('beforeend', breedsOptions)  
+        
 
     })
 
@@ -424,15 +646,27 @@ function openBreedsPage(e) {
     
     breedNameOption.addEventListener('change', function(e) {
         console.log(e.target.value)
-        catApiService.id = e.target.value
+        const chosenBreedId = e.target.value
+        catApiService.id = chosenBreedId
         catApiService.limit = 100
         catApiService.pagination().then(data => {
             console.log(data)
             const img = data[0].url
+            const savedFullInfo = readInfoFromLocalStorage('fullInfoAboutBreed')
+            const thisCatFullInfo = savedFullInfo.filter(el => el.id === chosenBreedId)
+            console.log(thisCatFullInfo)
+            const dexription = thisCatFullInfo[0].description
+            const temperament = thisCatFullInfo[0].temperament;
+            const origin = thisCatFullInfo[0].origin
+            const weight =   thisCatFullInfo[0].weight.metric  
+            const life =  thisCatFullInfo[0].life_span 
+            const breedName = thisCatFullInfo[0].name
+            const breedId = thisCatFullInfo[0].id
+            console.log(temperament,origin,weight,life,breedName,breedId) 
             data.map(el => breedPhotosArr.push(el.url))
             Notiflix.Notify.info(`There are ${breedPhotosArr.length} photos`)
             mainBreedData.innerHTML = ''
-            const fullInfo = createBreedFullInfoMarkup(img) 
+            const fullInfo = createBreedFullInfoMarkup(img,breedId,breedName,temperament,origin,weight,life) 
             mainBreedData.insertAdjacentHTML('afterbegin', fullInfo)
 
             const imgToChange = document.querySelector('.breeds_full-info-img')
@@ -568,10 +802,10 @@ function openGallaryPage(e){
      
     
     function showFilteredCatInGallery(e) {
-        // console.log("ORDER :", order.value ,",",
-        //             "BREED ID :", breedId.value ,",", 
-        //             "PHOTO TYPE :", type.value ,",", 
-        //             "LIMIT :", limit.value ,"," )
+        console.log("ORDER :", order.value ,",",
+                    "BREED ID :", breedId.value ,",", 
+                    "PHOTO TYPE :", type.value ,",", 
+                    "LIMIT :", limit.value ,",",)
         const gallery = document.querySelector('.gallery-gallery')
                     catApiService.id = breedId.value
                     catApiService.limit = limit.value
@@ -585,8 +819,8 @@ function openGallaryPage(e){
                                 
                                 <img 
                                 src=${JSON.stringify(el.url)} 
-                                alt="${el.breeds[0].name}" 
-                                id="${el.breeds[0].id}"  
+                                alt="${el.id}" 
+                                id="${el.id}"  
             
                                 loading="lazy" 
                                 class="img image${index}"
@@ -597,7 +831,7 @@ function openGallaryPage(e){
                     `  
                         
                         ).join('')
-                        // console.log(markup)
+                        console.log(markup)
                         gallery.innerHTML = ''
                         gallery.insertAdjacentHTML('afterbegin', markup)
                     })

@@ -104,12 +104,14 @@
     grid-template-columns:  [col1-start] 200px   [col2-start] 200px  
                             [col3-start] 200px   [col3-end];
     grid-template-rows:     [row1-start] 150px 
-                            [row2-start] 140px [row3-start] 140px 
-                            [row4-start] 140px [row5-start]140px 
-                            [row6-start] 140px [row7-start]140px 
-                            [row8-start] 140px [row9-start]140px  
-                            [row10-start] 140px [row11-start]140px
-                            [row12-start] 140px [row13-end];
-                             
+                            [row2-start] 140px  [row3-start] 140px 
+                            [row4-start] 140px  [row5-start]140px 
+                            [row6-end] 140px;
+                                                    
    
 }
+
+                            // [row7-start]140px 
+                            // [row8-start] 140px [row9-start]140px  
+                            // [row10-start] 140px [row11-start]140px
+                            // [row12-start] 140px [row13-end];

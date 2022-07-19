@@ -114,11 +114,7 @@
     grid-template-rows:     [row1-start] 150px 
                             [row2-start] 140px  [row3-start] 140px 
                             [row4-start] 140px  [row5-start]140px 
-                            [row6-start] 140px  [row7-start] 140px 
-                            [row8-start] 140px  [row9-start] 140px 
-                            [row10-start] 140px [row11-start]140px
-                            [row12-start] 140px [row13-start] 140px 
-                            [row14-start] 140px [row15-end];
+                            [row6-end] 140px;
     background-color: #fff;
     color: #444;
     overflow-y: auto;
@@ -131,6 +127,12 @@
      
     
 }
+
+//                             [row7-start] 140px 
+//                             [row8-start] 140px  [row9-start] 140px 
+//                             [row10-start] 140px [row11-start]140px
+//                             [row12-start] 140px [row13-start] 140px 
+//                             [row14-start] 140px [row15-end];
  
 
  
@@ -172,17 +174,17 @@
 
  .cat-breeds_image7 {
     grid-column: col3-start;
-    grid-row: row4-start / row6-start;
+    grid-row: row4-start / row6-end;
  }
 
  .cat-breeds_image8 {
    grid-column: col1-start / col3-start;
-   grid-row: row5-start / row7-start;
+   grid-row: row5-start / row6-start;
  }
 
  .cat-breeds_image9 {
     grid-column: col3-start ;
-    grid-row: row6-start;
+    grid-row: row6-end;
  }
 
  .cat-breeds_image10 {
@@ -394,6 +396,15 @@
   height: 40px;
   background: #FF868E;
   border-radius: 10px;
+  border: none;
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1.5;
+  text-align: center;
+  letter-spacing: 2px;
+  color: #FFFFFF;
 }
 
 .breeds_full-info-container{
