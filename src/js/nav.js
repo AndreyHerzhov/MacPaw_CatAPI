@@ -111,8 +111,11 @@ window.onload = function() {
 
   function showFullInfoByBreedId(e) {
     photoIndex = 0
-    if(e.target.nodeName !== 'IMG'){
+    if(!e.target.classList.contains('breed-name')){
+        // console.log('Ето не бокс')
+        // console.log(e.target)
         return
+
     }
     console.log(e.target.id)
   
@@ -191,16 +194,16 @@ function openVotingPgae(e) {
             refs.backgroundMain.innerHTML = ''
             createVotingMarkup(imgUrl,imgId)
                         
-            const likesSaved = document.querySelector('#smile')
-            const dislikesSaved = document.querySelector('#sad')
-            const favSaved = document.querySelector('#heart')
+          
             const likes = document.querySelector('.voting-image_button-smile')
             const favourites = document.querySelector('.voting-image_button-heart')
             const dislikes = document.querySelector('.voting-image_button-sad ')
             const actionLog = document.querySelector('.main-container_voting-data_list')
             const userLogFromLocalStorage = readInfoFromLocalStorage("user-log")
+            const likesSaved = document.querySelector('#smile')
+            const dislikesSaved = document.querySelector('#sad')
+            const favSaved = document.querySelector('#heart')
 
-            // console.log(favSaved,dislikesSaved,likesSaved)
             likesSaved.addEventListener('click', showAllLikedPhotos)
             favSaved.addEventListener('click', showAllFavdPhotos)
             dislikesSaved.addEventListener('click', showAllDisLikedPhotos)
@@ -583,7 +586,7 @@ function openBreedsPage(e) {
             <option value="${el.id}">${el.name}</option>
             `
                 )
-            // console.log(breedsOptions)    
+             
             breedsList.insertAdjacentHTML('beforeend', breedsOptions)  
         } else {
             const resultWithImg = data.filter(el => el.image !== undefined) 
@@ -592,7 +595,7 @@ function openBreedsPage(e) {
             <option value="${el.id}">${el.name}</option>
             `
                 )
-            // console.log(breedsOptions)    
+              
             breedsList.insertAdjacentHTML('beforeend', breedsOptions)  
             return
         }
@@ -624,7 +627,7 @@ function openBreedsPage(e) {
                     class="img image${index}"
                     width ="200px"
                     />       
-                    <div class="breed-name">${el.name}</div>
+                    <div class="breed-name" id="${el.id}"><button class="breed-name_button">${el.name}</button></div>
             </div>
         `  
            
@@ -633,11 +636,197 @@ function openBreedsPage(e) {
           breedsGallery.insertAdjacentHTML('afterbegin', markup)
         })
 
+
+
     const prevBtn = document.querySelector('#prev_btn')
     const nextBtn = document.querySelector('#next_btn')
     const limitOption = document.querySelector("#limit")
     const breedNameOption = document.querySelector("#breeds_options")
     const mainBreedData = document.querySelector('.main-container_breeds-data')
+    
+     
+    const likesSaved = document.querySelector('#smile')
+    const dislikesSaved = document.querySelector('#sad')
+    const favSaved = document.querySelector('#heart')
+     
+
+    likesSaved.addEventListener('click', showAllLikedPhotos)
+    favSaved.addEventListener('click', showAllFavdPhotos)
+    dislikesSaved.addEventListener('click', showAllDisLikedPhotos)
+
+    const mainContainer = document.querySelector('.main-container_breeds-data')
+
+    function showAllLikedPhotos() {
+        
+        console.log('Click like')
+        mainContainer.innerHTML = ''
+
+        const likeMarkup = `
+              
+                    
+                    <div class="breeds-button_wrapper">
+                        <button
+                            class="breeds-button_back"
+                            type="button"
+                            data-back="back"
+                            id="back">${iconLeft}
+                        </button>
+                        
+                        <button
+                            class="breeds-button_right"
+                            type="button"
+                            data-breeds="breeds_main"
+                            id="breeds_main">LIKES
+                        </button>
+      
+                    </div>
+                <div class="breeds-gallery"></div>
+        `
+        mainContainer.insertAdjacentHTML('afterbegin',likeMarkup)
+        const breedsGallery = document.querySelector('.breeds-gallery')
+
+        const likedFotos = readInfoFromLocalStorage('likes')
+        if(likedFotos) {
+            console.log(likedFotos)
+            const  likesPhotoMarkup =  likedFotos.map((el,index) =>   
+    
+            `
+                <div class="box cat-breeds_image${index}">
+                        
+                        <img 
+                        src=${el.src} 
+                        alt="${el.id}" 
+                        id="${el.id}"  
+    
+                        loading="lazy" 
+                        class="img image${index}"
+                        width ="200px"
+                        />       
+                        
+                </div>
+            `  
+            ).join('')
+
+            breedsGallery.insertAdjacentHTML('afterbegin',likesPhotoMarkup)
+        } else {
+            return
+        }
+        
+    }
+
+    function showAllFavdPhotos() {
+        console.log('Click like')
+        mainContainer.innerHTML = ''
+
+        const favMarkup = `
+              
+                    
+                    <div class="breeds-button_wrapper">
+                        <button
+                            class="breeds-button_back"
+                            type="button"
+                            data-back="back"
+                            id="back">${iconLeft}
+                        </button>
+                        
+                        <button
+                            class="breeds-button_right"
+                            type="button"
+                            data-breeds="breeds_main"
+                            id="breeds_main">FAVOURITES
+                        </button>
+      
+                    </div>
+                <div class="breeds-gallery"></div>
+        `
+        mainContainer.insertAdjacentHTML('afterbegin',favMarkup)
+        const breedsGallery = document.querySelector('.breeds-gallery')
+
+        const favFotos = readInfoFromLocalStorage('favourites')
+        if(favFotos) {
+            console.log(favFotos)
+            const  favPhotoMarkup =  favFotos.map((el,index) =>   
+    
+            `
+                <div class="box cat-breeds_image${index}">
+                        
+                        <img 
+                        src=${el.src} 
+                        alt="${el.id}" 
+                        id="${el.id}"  
+    
+                        loading="lazy" 
+                        class="img image${index}"
+                        width ="200px"
+                        />       
+                        
+                </div>
+            `  
+            ).join('')
+
+            breedsGallery.insertAdjacentHTML('afterbegin',favPhotoMarkup)
+        } else {
+            return
+        }
+    }
+
+    function showAllDisLikedPhotos() {
+        console.log('Click like')
+        mainContainer.innerHTML = ''
+
+        const dislikeMarkup = `
+              
+                    
+                    <div class="breeds-button_wrapper">
+                        <button
+                            class="breeds-button_back"
+                            type="button"
+                            data-back="back"
+                            id="back">${iconLeft}
+                        </button>
+                        
+                        <button
+                            class="breeds-button_right"
+                            type="button"
+                            data-breeds="breeds_main"
+                            id="breeds_main">DISLIKES
+                        </button>
+      
+                    </div>
+                <div class="breeds-gallery"></div>
+        `
+        mainContainer.insertAdjacentHTML('afterbegin',dislikeMarkup)
+        const breedsGallery = document.querySelector('.breeds-gallery')
+
+        const disLikedFotos = readInfoFromLocalStorage('dislike')
+        if(disLikedFotos) {
+            console.log(disLikedFotos)
+            const  disLikesPhotoMarkup =  disLikedFotos.map((el,index) =>   
+    
+            `
+                <div class="box cat-breeds_image${index}">
+                        
+                        <img 
+                        src=${el.src} 
+                        alt="${el.id}" 
+                        id="${el.id}"  
+    
+                        loading="lazy" 
+                        class="img image${index}"
+                        width ="200px"
+                        />       
+                        
+                </div>
+            `  
+            ).join('')
+
+            breedsGallery.insertAdjacentHTML('afterbegin',disLikesPhotoMarkup)
+        } else {
+            return
+        }
+    }
+
+  
     limitOption.addEventListener('change', function(e) {
         currentLimit = e.target.value
         catApiService.limit = currentLimit
@@ -739,7 +928,8 @@ function openBreedsPage(e) {
         }
     
     function showNextTen(e) {
-        if(initianlPage >= 6){
+        if(initianlPage >= (67 / catApiService.limit - 1) ){
+            Notiflix.Notify.info("There are no cats more") 
             console.log("There are no cats more")
             return
         }
@@ -797,6 +987,9 @@ function openGallaryPage(e){
     const breedId = document.querySelector('#breed')
     const type = document.querySelector('#type')
     const limit = document.querySelector('#page_limit')
+    const upload = document.querySelector('#upload')
+
+    upload.addEventListener('click', function () {console.log('click')})
     updateBtn.addEventListener('click', showFilteredCatInGallery) 
         
      
@@ -835,9 +1028,192 @@ function openGallaryPage(e){
                         gallery.innerHTML = ''
                         gallery.insertAdjacentHTML('afterbegin', markup)
                     })
+    
                         
                     
                     }
+                     
+    const likesSaved = document.querySelector('#smile')
+    const dislikesSaved = document.querySelector('#sad')
+    const favSaved = document.querySelector('#heart')
+     
+
+    likesSaved.addEventListener('click', showAllLikedPhotos)
+    favSaved.addEventListener('click', showAllFavdPhotos)
+    dislikesSaved.addEventListener('click', showAllDisLikedPhotos)
+     
+
+    const mainContainer = document.querySelector('.main-container_gallery-data')
+
+    function showAllLikedPhotos() {
+        
+        console.log('Click like')
+        mainContainer.innerHTML = ''
+
+        const likeMarkup = `
+              
+                    
+                    <div class="breeds-button_wrapper">
+                        <button
+                            class="breeds-button_back"
+                            type="button"
+                            data-back="back"
+                            id="back">${iconLeft}
+                        </button>
+                        
+                        <button
+                            class="breeds-button_right"
+                            type="button"
+                            data-breeds="breeds_main"
+                            id="breeds_main">LIKES
+                        </button>
+      
+                    </div>
+                <div class="breeds-gallery"></div>
+        `
+        mainContainer.insertAdjacentHTML('afterbegin',likeMarkup)
+        const breedsGallery = document.querySelector('.breeds-gallery')
+
+        const likedFotos = readInfoFromLocalStorage('likes')
+        if(likedFotos) {
+            console.log(likedFotos)
+            const  likesPhotoMarkup =  likedFotos.map((el,index) =>   
+    
+            `
+                <div class="box cat-breeds_image${index}">
+                        
+                        <img 
+                        src=${el.src} 
+                        alt="${el.id}" 
+                        id="${el.id}"  
+    
+                        loading="lazy" 
+                        class="img image${index}"
+                        width ="200px"
+                        />       
+                        
+                </div>
+            `  
+            ).join('')
+
+            breedsGallery.insertAdjacentHTML('afterbegin',likesPhotoMarkup)
+        } else {
+            return
+        }
+        
+    }
+
+    function showAllFavdPhotos() {
+        console.log('Click like')
+        mainContainer.innerHTML = ''
+
+        const favMarkup = `
+              
+                    
+                    <div class="breeds-button_wrapper">
+                        <button
+                            class="breeds-button_back"
+                            type="button"
+                            data-back="back"
+                            id="back">${iconLeft}
+                        </button>
+                        
+                        <button
+                            class="breeds-button_right"
+                            type="button"
+                            data-breeds="breeds_main"
+                            id="breeds_main">FAVOURITES
+                        </button>
+      
+                    </div>
+                <div class="breeds-gallery"></div>
+        `
+        mainContainer.insertAdjacentHTML('afterbegin',favMarkup)
+        const breedsGallery = document.querySelector('.breeds-gallery')
+
+        const favFotos = readInfoFromLocalStorage('favourites')
+        if(favFotos) {
+            console.log(favFotos)
+            const  favPhotoMarkup =  favFotos.map((el,index) =>   
+    
+            `
+                <div class="box cat-breeds_image${index}">
+                        
+                        <img 
+                        src=${el.src} 
+                        alt="${el.id}" 
+                        id="${el.id}"  
+    
+                        loading="lazy" 
+                        class="img image${index}"
+                        width ="200px"
+                        />       
+                        
+                </div>
+            `  
+            ).join('')
+
+            breedsGallery.insertAdjacentHTML('afterbegin',favPhotoMarkup)
+        } else {
+            return
+        }
+    }
+
+    function showAllDisLikedPhotos() {
+        console.log('Click like')
+        mainContainer.innerHTML = ''
+
+        const dislikeMarkup = `
+              
+                    
+                    <div class="breeds-button_wrapper">
+                        <button
+                            class="breeds-button_back"
+                            type="button"
+                            data-back="back"
+                            id="back">${iconLeft}
+                        </button>
+                        
+                        <button
+                            class="breeds-button_right"
+                            type="button"
+                            data-breeds="breeds_main"
+                            id="breeds_main">DISLIKES
+                        </button>
+      
+                    </div>
+                <div class="breeds-gallery"></div>
+        `
+        mainContainer.insertAdjacentHTML('afterbegin',dislikeMarkup)
+        const breedsGallery = document.querySelector('.breeds-gallery')
+
+        const disLikedFotos = readInfoFromLocalStorage('dislike')
+        if(disLikedFotos) {
+            console.log(disLikedFotos)
+            const  disLikesPhotoMarkup =  disLikedFotos.map((el,index) =>   
+    
+            `
+                <div class="box cat-breeds_image${index}">
+                        
+                        <img 
+                        src=${el.src} 
+                        alt="${el.id}" 
+                        id="${el.id}"  
+    
+                        loading="lazy" 
+                        class="img image${index}"
+                        width ="200px"
+                        />       
+                        
+                </div>
+            `  
+            ).join('')
+
+            breedsGallery.insertAdjacentHTML('afterbegin',disLikesPhotoMarkup)
+        } else {
+            return
+        }
+    }
     } 
                   
  

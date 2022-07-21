@@ -59,7 +59,8 @@
 }
 
 .box {
-  position: relative;
+     
+    position: relative;
     background-color: #444;
     color: #fff;
     border-radius: 5px;
@@ -81,17 +82,25 @@
    
   
   .breed-name{
-    opacity: 0.5;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    opacity: 0.2;
     padding-top: 5px; 
     position: absolute;
-    left: 50%;
-    bottom: 10px;
-    transform: translateX(-50%);
-    width: 180px;
-    height: 34px;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
     color: #8C8C8C;
-    background: #FFFFFF;
-    border-radius: 10px;
+    background: rgba(255, 134, 142, 0.6);
+    // border-radius: 10px;
+    // left: 50%;
+    // bottom: 10px;
+    // transform: translateX(-50%);
+    // width: 180px;
+    // height: 34px;
     font-family: 'Jost';
     font-style: normal;
     font-weight: 400;
@@ -100,6 +109,15 @@
     text-align: center;
     color: #FF868E;
     transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .breed-name_button{
+    width: 180px;
+    height: 34px;
+    background: #FFFFFF;
+    border-radius: 10px;
+    color: #FF868E;
+    border: none;
   }
  
 
@@ -183,6 +201,7 @@
  }
 
  .cat-breeds_image9 {
+    
     grid-column: col3-start ;
     grid-row: row6-end;
  }
@@ -508,4 +527,5 @@
   color: #8C8C8C;
 }
 
+ 
  
