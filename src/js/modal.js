@@ -55,7 +55,10 @@
     const button = document.createElement('button')
     button.classList.add('drop-zone__upload-btn')
     button.innerText = 'UPLOAD PHOTO'
-    thumbNailElement.appendChild(button)     
+    thumbNailElement.appendChild(button)  
+    button.addEventListener('click', function (e) {
+        console.log(reader.result)
+    })   
     };
  }
 }
