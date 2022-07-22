@@ -23,8 +23,12 @@
           <p class="modal-content_text">Upload a .jpg or .png Cat Image</p>
           <p class="modal-content_instruction">Any uploads must comply with the <span class="orange">upload guidelines</span> or face deletion.</p>
         
-          <div class="drop-zone">
-            <p class="drop-zone_text"><span class="black">Drag here</span> your file or <span class="black">Click here</span> to upload</p>
+          <div class="drop-zone" id="drop-zone">
+            <p class="drop-zone_text">
+              <span class="black">Drag here</span> your file or 
+              <span class="black">Click here</span> to upload</p>
+              <!-- <div class="drop-zone__thumb" data-label="myfile.jpg"></div> -->
+              <input type="file" name="myCat" class="drop-zone__input">
           </div>
         
         </div>

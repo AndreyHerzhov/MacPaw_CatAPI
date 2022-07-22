@@ -40,7 +40,7 @@
     width: 143px;
     height: 40px;
     color: #fff;
-    background: #FBE0DC;
+    background:  #FF868E;
     border-radius: 10px;
     border: none;
     
@@ -52,7 +52,17 @@
     /* identical to box height, or 133% */
     text-align: center;
     letter-spacing: 2px;
-    color: #FF868E;
+    color: #FFFFFF;
+
+    &:hover{
+        cursor: pointer;
+        background: #FBE0DC;
+        color: #FF868E;
+    }
+
+    &:active{
+        transform: translateY(3px);
+    }
 }
 
 .gallery-filter{
@@ -114,4 +124,7 @@
                             // [row7-start]140px 
                             // [row8-start] 140px [row9-start]140px  
                             // [row10-start] 140px [row11-start]140px
-                            // [row12-start] 140px [row13-end];
+                            // [row12-start] 140px [row13-end
+
+
+ 
