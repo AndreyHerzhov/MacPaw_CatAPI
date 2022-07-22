@@ -1,0 +1,101 @@
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+  
+  /* Modal Content */
+  .modal-content {
+    position: relative;
+    width: 680px;
+    height: 840px;
+    background-color: #fefefe;
+    margin: auto;
+    padding-top: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
+    border: 1px solid #888;
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 1.33;
+    color: #1D1D1D;
+    text-align: center;
+    background: #F8F8F7;
+    border-radius: 20px;
+        
+  }
+  
+  /* The Close Button */
+  .close {
+    background: #FFFFFF;
+    border-radius: 10px;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 5px;
+    right: 15px;
+    color: #FF868E;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+.modal-content_instruction{
+  font-family: 'Jost';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 30px;
+  color: #8C8C8C;
+} 
+
+  .orange{
+    color: #FF868E;
+  }
+
+  .drop-zone{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 40px;
+    width: 640px;
+    height: 320px;
+    background: #FFFFFF;
+    border: 4px dashed #FBE0DC;
+    border-radius: 20px;
+    background-image: url(../images/hero/img_background.png);
+    background-repeat: no-repeat;
+    background-position: center;
+    
+  }
+
+  .drop-zone_text{
+    text-align: center;
+    font-family: 'Jost';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.5;
+    color: #8C8C8C;
+  }
+
+  .black{
+    color: #1D1D1D;
+  }

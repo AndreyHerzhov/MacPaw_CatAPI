@@ -111,7 +111,7 @@ window.onload = function() {
 
   function showFullInfoByBreedId(e) {
     photoIndex = 0
-    if(!e.target.classList.contains('breed-name')){
+    if(!e.target.classList.contains('breed-name_button')){
         // console.log('Ето не бокс')
         // console.log(e.target)
         return
@@ -178,7 +178,9 @@ function openVotingPgae(e) {
     e.preventDefault()
     photoIndex = 0
     breedPhotosArr = []
+    Notiflix.Loading.hourglass();
     catApiService.fetchRandomCat().then(data => {
+        Notiflix.Loading.remove();       
             const imgUrl = data[0].url
             const imgId = data[0].id
             refs.main.classList.remove('breeds')
@@ -575,7 +577,9 @@ function openBreedsPage(e) {
     breedsGallery.addEventListener('click', showFullInfoByBreedId)
     catApiService.limit = 67
     catApiService.page = 0
+    Notiflix.Loading.hourglass();
     catApiService.fetchAllBreeds().then(data => {
+        Notiflix.Loading.remove();
         const savedInfoInLocalStorage = readInfoFromLocalStorage('fullInfoAboutBreed')
         if(!savedInfoInLocalStorage) {
             breedInfoArr.push(...data)
@@ -627,7 +631,7 @@ function openBreedsPage(e) {
                     class="img image${index}"
                     width ="200px"
                     />       
-                    <div class="breed-name" id="${el.id}"><button class="breed-name_button">${el.name}</button></div>
+                    <div class="breed-name" id="${el.id}"><button id="${el.id}" class="breed-name_button">${el.name}</button></div>
             </div>
         `  
            
@@ -988,8 +992,29 @@ function openGallaryPage(e){
     const type = document.querySelector('#type')
     const limit = document.querySelector('#page_limit')
     const upload = document.querySelector('#upload')
+    const modal = document.getElementById("myModal");
+    // Get the <span> element that closes the modal
+    const span = document.getElementsByClassName("close")[0];
+    upload.addEventListener('click', function () {
+        modal.style.display = "block";
+        console.log('click')
+       
 
-    upload.addEventListener('click', function () {console.log('click')})
+        
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+        modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+        }
+
+    })
     updateBtn.addEventListener('click', showFilteredCatInGallery) 
         
      

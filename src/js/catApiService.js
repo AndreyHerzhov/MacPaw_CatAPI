@@ -79,6 +79,15 @@ export default class CatApiService {
             return data
         })
     }
+
+    uploadFoto() {
+        const url = `${BASE_URL}images/upload`;
+        return fetch(url)
+          .then(response =>  response.json())
+          .then((data) => {
+            return data
+        })
+    }
     
     resetPage() {
         this.page = 1 
