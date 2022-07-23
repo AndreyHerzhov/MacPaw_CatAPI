@@ -998,7 +998,9 @@ function openGallaryPage(e){
     upload.addEventListener('click', function () {
         modal.style.display = "block";
         console.log('click')
-       
+        // catApiService.uploadFoto().then(data => {
+        //     console.log(data)
+        // })
 
         
 

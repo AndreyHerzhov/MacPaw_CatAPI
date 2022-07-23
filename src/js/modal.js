@@ -1,3 +1,6 @@
+import CatApiService from "./catApiService";
+
+const catApiService = new CatApiService()
  
  
  document.querySelectorAll('.drop-zone__input').forEach(inputElement => {
@@ -58,6 +61,9 @@
     thumbNailElement.appendChild(button)  
     button.addEventListener('click', function (e) {
         console.log(reader.result)
+        catApiService.uploadFoto().then(data => {
+            console.log(data)
+        })
     })   
     };
  }
